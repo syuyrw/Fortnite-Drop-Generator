@@ -1,0 +1,50 @@
+@font-face {
+    font-family: fortnite;
+    src: url("Fortnite.ttf");
+}
+
+body {
+    background-color: #103480;
+    font-family: fortnite;
+}
+
+.map {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    place-items: center;
+}
+
+.map-img {
+    max-width: 100vh;
+    max-height: 95vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button-box {
+    position: absolute;
+    top: 2%;
+}
+
+button {
+    border-radius: 7px;
+    background-color: #4898cb;
+    color: white;
+}
+
+.drop-button {
+    height: 6vw;
+    margin-bottom: -5.5vh;
+    font-size: 5vw;
+}
+
+.marker {
+    color: white;
+    font-size: 2vh;
+    text-align: center;text-shadow: -1px -1px 0 #000,  
+    1px -1px 0 #000,
+   -1px  1px 0 #000,
+    1px  1px 0 #000; 
+}
