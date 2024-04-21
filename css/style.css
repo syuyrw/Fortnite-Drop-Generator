@@ -4,23 +4,30 @@
 }
 
 body {
+    margin: 0; /* Remove default body margin */
     background-color: #103480;
     font-family: fortnite;
 }
 
 .map {
-    display: grid;
     position: relative;
-    place-items: center;
+    width: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    padding-top: 100%; /* Set the height relative to width */
     overflow: hidden;
 }
 
 .map-img {
-    width: 100vw;
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
     top: 0;
+    left: 0;
+    width: 100%; /* Ensure image fills the container */
+    height: 100%; /* Ensure image fills the container */
+    object-fit: contain
 }
+
+
 
 .button-box {
     position: absolute;
