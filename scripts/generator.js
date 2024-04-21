@@ -34,13 +34,10 @@ function displayRandomMarker() {
     marker.classList.add("marker");
     marker.textContent = randomLocation.name;
     marker.style.position = "absolute";
+
     // Calculate position with adjustments for centering
-    var markerX =
-        ((randomLocation.x - 160) / mapImg.width) * 100 -
-        (marker.offsetWidth / 2 / mapImg.width) * 100;
-    var markerY =
-        ((randomLocation.y - 100) / mapImg.height) * 100 -
-        (marker.offsetHeight / 2 / mapImg.height) * 100;
+    var markerX = (randomLocation.x / mapImg.naturalWidth) * 100; // Calculate x-coordinate relative to the natural width of the image
+    var markerY = (randomLocation.y / mapImg.naturalHeight) * 100; // Calculate y-coordinate relative to the natural height of the image
 
     marker.style.left = markerX + "%";
     marker.style.top = markerY + "%";
@@ -48,12 +45,12 @@ function displayRandomMarker() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    displayRandomMarker();
+    displayRandomMarker(); // Call displayRandomMarker function when the DOM content is loaded (i.e., page is refreshed)
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    var dropButton = document.getElementById("drop-button");
+    var dropButton = document.querySelector(".drop-button");
     dropButton.addEventListener("click", function () {
-        location.reload();
+        location.reload(); // Reload the page when the drop-button is clicked
     });
 });

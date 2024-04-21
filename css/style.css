@@ -10,17 +10,16 @@ body {
 
 .map {
     display: grid;
-    height: 100%;
-    width: 100%;
     position: relative;
     place-items: center;
+    overflow: hidden;
 }
 
 .map-img {
-    max-width: 100vh;
-    max-height: 95vw;
+    width: 100vw;
     margin-left: auto;
     margin-right: auto;
+    top: 0;
 }
 
 .button-box {
@@ -43,8 +42,7 @@ button {
 .marker {
     color: white;
     font-size: 2vh;
-    text-align: center;text-shadow: -1px -1px 0 #000,  
-    1px -1px 0 #000,
-   -1px  1px 0 #000,
-    1px  1px 0 #000; 
+    text-align: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
 }
