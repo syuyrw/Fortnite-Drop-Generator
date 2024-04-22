@@ -31,7 +31,10 @@ body {
 
 .button-box {
     position: absolute;
-    top: 2%;
+    top: 3%;
+    width: 100%;
+    padding-left: 20%;
+    display: inline-block;
 }
 
 button {
@@ -52,4 +55,15 @@ button {
     text-align: center;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
         1px 1px 0 #000;
+}
+
+.node-marker {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    background-color:red;
+    opacity: 75%;
+    border-radius: 50%;
+    border-color: #000;
+    display: block;
 }
