@@ -18,6 +18,8 @@ var pois = [
 // Function to pick a random POI and display its name as a marker
 function displayRandomMarker() {
     // Variable to store the index of the previously selected location
+    
+
     var previousIndex = -1;
 
     var randomIndex;
@@ -30,10 +32,17 @@ function displayRandomMarker() {
     var randomLocation = pois[randomIndex]; // Get the randomly selected location
     var mapImg = document.querySelector(".map-img"); // Get the map image element
 
-    var marker = document.createElement("div");
-    marker.classList.add("marker");
-    marker.textContent = randomLocation.name;
-    marker.style.position = "absolute";
+    //Try to find an existing marker
+    var marker = document.querySelector('.marker');
+
+    // No existing marker, create a new one
+    if (!marker) {
+        marker = document.createElement("div");
+        marker.classList.add("marker");
+        marker.style.position = "absolute"; // Only needs to be set once
+        var mapImg = document.querySelector(".map-img").parentNode;
+        mapImg.appendChild(marker); // Append new marker
+    }
 
     // Calculate position with adjustments for centering
     var markerX = (randomLocation.x / mapImg.naturalWidth) * 100; // Calculate x-coordinate relative to the natural width of the image
@@ -41,7 +50,12 @@ function displayRandomMarker() {
 
     marker.style.left = markerX + "%";
     marker.style.top = markerY + "%";
-    mapImg.parentNode.appendChild(marker); // Append marker to the parent of mapImg (usually .map)
+    marker.textContent = randomLocation.name;
+    // mapImg.parentNode.appendChild(marker); // Append marker to the parent of mapImg (usually .map)
+
+    var nodeMarker = document.getElementById("node-marker");
+    nodeMarker.style.visibility = "hidden"; // Set visibility of nodeMarker to hidden
+    marker.style.visibility = "visible";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -51,6 +65,47 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     var dropButton = document.querySelector(".drop-button");
     dropButton.addEventListener("click", function () {
-        location.reload(); // Reload the page when the drop-button is clicked
+        displayRandomMarker(); // Reload the page when the drop-button is clicked
     });
+});
+
+function displayRandomSpot() {
+
+    var nodeMarker = document.getElementById("node-marker");
+    var marker = document.querySelector(".marker")
+
+    //Check visibility and switch nodeMarker and marker if necessary
+    if (nodeMarker.style.visibility === "hidden"){
+        nodeMarker.style.visibility = "visible";
+        marker.style.visibility = "hidden";
+    }
+
+    var canvas = document.querySelector(".map-img");
+    var centerX = canvas.naturalWidth / 2;
+    var centerY = canvas.naturalHeight / 2;
+    var radius = (canvas.naturalWidth - centerX) * .8;
+    
+    //Generate random angle
+    var angle = Math.random() * 2 * Math.PI;
+
+    //Generate random radius
+    var r = radius * Math.sqrt(Math.random());
+
+    //Polar to Cartesian Coordinates
+    var x = r * Math.cos(angle);
+    var y = r * Math.sin(angle);
+
+    //Make coordinates aling with center of the image
+    x = ((x + centerX)/canvas.naturalWidth) * 100;
+    y = ((y+ centerY)/canvas.naturalHeight) * 100;
+
+    nodeMarker.style.left = x + "%";
+    nodeMarker.style.top = y + "%";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var randSpot = document.getElementById("rand-spot");
+    randSpot.addEventListener("click", function() {
+        displayRandomSpot(); // Calls function to generate random spot when clicked.
+    })
 });
