@@ -1,3 +1,5 @@
+ const HISTORY_ARRAY_SIZE = 5;
+
 // List of map locations with coordinates
 var pois = [
     { name: "Brawler's Battleground", x: 1430, y: 1722 },
@@ -15,11 +17,20 @@ var pois = [
     { name: "The Underworld", x: 426, y: 752 },
 ];
 
+// Retrieve the JSON string from local storage
+const jsonPreviousDrops = localStorage.getItem('previousDrops');
+
+// Check if the retrieved value is not null
+if (jsonPreviousDrops !== null) {
+  // Parse the JSON string back into an array
+  var previousDrops = JSON.parse(jsonPreviousDrops);
+} else {
+  var previousDrops = [];
+}
+
 // Function to pick a random POI and display its name as a marker
 function displayRandomMarker() {
     // Variable to store the index of the previously selected location
-    
-
     var previousIndex = -1;
 
     var randomIndex;
@@ -53,9 +64,41 @@ function displayRandomMarker() {
     marker.textContent = randomLocation.name;
     // mapImg.parentNode.appendChild(marker); // Append marker to the parent of mapImg (usually .map)
 
+    updateDropHistory(randomLocation.name);
+
     var nodeMarker = document.getElementById("node-marker");
     nodeMarker.style.visibility = "hidden"; // Set visibility of nodeMarker to hidden
     marker.style.visibility = "visible";
+}
+
+function updateDropHistory(newDrop){
+    //Shift elements down one
+    for (let i = HISTORY_ARRAY_SIZE - 1; i > 0; i--) {
+        if (previousDrops[i - 1]) {
+            previousDrops[i] = previousDrops[i - 1];
+        }
+    }
+
+    previousDrops[0] = newDrop;
+    previousDrops.length = HISTORY_ARRAY_SIZE;
+
+    //Create display for the Users
+    var history = 'Previous Drops: ';
+    for(let i = 0; i < previousDrops.length; i++){
+        history = history + previousDrops[i];
+        if(i != previousDrops.length - 1){
+            history = history + ", ";
+        }
+    }
+
+    //Display the history
+    var historyDisplay = document.getElementById('history')
+    historyDisplay.textContent = history;
+
+    //Store the array into local storage
+    const jsonPreviousDrops = JSON.stringify(previousDrops);
+    localStorage.setItem('previousDrops', jsonPreviousDrops)
+
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -95,7 +138,7 @@ function displayRandomSpot() {
     var x = r * Math.cos(angle);
     var y = r * Math.sin(angle);
 
-    //Make coordinates aling with center of the image
+    //Make coordinates align with center of the image
     x = ((x + centerX)/canvas.naturalWidth) * 100;
     y = ((y+ centerY)/canvas.naturalHeight) * 100;
 
