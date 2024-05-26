@@ -5,7 +5,7 @@
 
 body {
     margin: 0; /* Remove default body margin */
-    background-color: #103480;
+    background-color: #303037;
     font-family: fortnite;
 }
 
@@ -40,7 +40,7 @@ body {
 
 button {
     border-radius: 7px;
-    background-color: #4898cb;
+    background-color: #235589;
     color: white;
 }
 
