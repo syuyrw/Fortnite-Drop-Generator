@@ -9,7 +9,6 @@ var pois = [
     { name: "Lavish Lair", x: 1136, y: 588 },
     { name: "Mount Olympus", x: 1784, y: 1464 },
     { name: "Pleasant Piazza", x: 544, y: 1224 },
-    { name: "Rebel's Roost", x: 610, y: 436 },
     { name: "Reckless Railways", x: 1568, y: 948 },
     { name: "Restored Reels", x: 1043, y: 1072 },
     { name: "Sandy Steppes", x: 532, y: 1612 },
