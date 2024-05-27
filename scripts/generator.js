@@ -2,20 +2,20 @@ const HISTORY_ARRAY_SIZE = 5;
 
 // List of map locations with coordinates
 var pois = [
-    { name: "Brawler's Battleground", x: 1830, y: 1822 },
-    { name: "Classy Courts", x: 1774, y: 374 },
-    { name: "Grand Glacier", x: 2206, y: 968 },
-    { name: "Grim Gate", x: 826, y: 952 },
-    { name: "Lavish Lair", x: 1186, y: 488 },
-    { name: "Mount Olympus", x: 1884, y: 1564 },
-    { name: "Pleasant Piazza", x: 744, y: 1224 },
-    { name: "Reckless Railways", x: 1768, y: 948 },
-    { name: "Restored Reels", x: 1243, y: 1072 },
-    { name: "Sandy Steppes", x: 732, y: 1712 },
-    { name: "The Underworld", x: 526, y: 752 },
-    { name: "Nitrodrome", x: 1200, y: 1431 },
-    { name: "Brutal Beachhead", x: 930, y: 1971 },
-    { name: "Redline Rig", x: 1536, y: 1904 },
+    { name: "Brawler's Battleground", x: 1530, y: 1822 },
+    { name: "Classy Courts", x: 1574, y: 474 },
+    { name: "Grand Glacier", x: 2016, y: 968 },
+    { name: "Grim Gate", x: 726, y: 952 },
+    { name: "Lavish Lair", x: 1136, y: 588 },
+    { name: "Mount Olympus", x: 1784, y: 1464 },
+    { name: "Pleasant Piazza", x: 544, y: 1224 },
+    { name: "Reckless Railways", x: 1568, y: 948 },
+    { name: "Restored Reels", x: 1043, y: 1072 },
+    { name: "Sandy Steppes", x: 532, y: 1612 },
+    { name: "The Underworld", x: 426, y: 752 },
+    { name: "Nitrodrome", x: 1100, y: 1431 },
+    { name: "Brutal Beachhead", x: 730, y: 1871 },
+    { name: "Redline Rig", x: 1336, y: 1804 },
 ];
 
 // Retrieve the JSON string from local storage
@@ -122,14 +122,12 @@ function updateDropHistory(newDrop) {
     localStorage.setItem('previousDrops', jsonPreviousDrops);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    displayRandomMarker(); // Call displayRandomMarker function when the DOM content is loaded (i.e., page is refreshed)
-});
+// Remove the initial call to displayRandomMarker
 
 document.addEventListener("DOMContentLoaded", function () {
     var dropButton = document.querySelector(".drop-button");
     dropButton.addEventListener("click", function () {
-        displayRandomMarker(); // Reload the page when the drop-button is clicked
+        displayRandomMarker(); // Call displayRandomMarker when the drop-button is clicked
     });
 });
 
