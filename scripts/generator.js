@@ -2,20 +2,20 @@ const HISTORY_ARRAY_SIZE = 5;
 
 // List of map locations with coordinates
 var pois = [
-    { name: "Brawler's Battleground", x: 1530, y: 1822 },
-    { name: "Classy Courts", x: 1574, y: 474 },
-    { name: "Grand Glacier", x: 2016, y: 968 },
-    { name: "Grim Gate", x: 726, y: 952 },
-    { name: "Lavish Lair", x: 1136, y: 588 },
-    { name: "Mount Olympus", x: 1784, y: 1464 },
-    { name: "Pleasant Piazza", x: 544, y: 1224 },
-    { name: "Reckless Railways", x: 1568, y: 948 },
-    { name: "Restored Reels", x: 1043, y: 1072 },
-    { name: "Sandy Steppes", x: 532, y: 1612 },
-    { name: "The Underworld", x: 426, y: 752 },
-    { name: "Nitrodrome", x: 1100, y: 1431 },
-    { name: "Brutal Beachhead", x: 730, y: 1871 },
-    { name: "Redline Rig", x: 1336, y: 1804 },
+    { name: "Brawler's Battleground", x: 1830, y: 1822 },
+    { name: "Classy Courts", x: 1774, y: 374 },
+    { name: "Grand Glacier", x: 2206, y: 968 },
+    { name: "Grim Gate", x: 826, y: 952 },
+    { name: "Lavish Lair", x: 1186, y: 488 },
+    { name: "Mount Olympus", x: 1884, y: 1564 },
+    { name: "Pleasant Piazza", x: 744, y: 1224 },
+    { name: "Reckless Railways", x: 1768, y: 948 },
+    { name: "Restored Reels", x: 1243, y: 1072 },
+    { name: "Sandy Steppes", x: 732, y: 1712 },
+    { name: "The Underworld", x: 526, y: 752 },
+    { name: "Nitrodrome", x: 1200, y: 1431 },
+    { name: "Brutal Beachhead", x: 930, y: 1971 },
+    { name: "Redline Rig", x: 1536, y: 1904 },
 ];
 
 // Retrieve the JSON string from local storage
@@ -56,16 +56,34 @@ function displayRandomMarker() {
     if (!marker) {
         marker = document.createElement("div");
         marker.classList.add("marker");
-        marker.style.position = "absolute"; // Only needs to be set once
         mapImg.parentNode.appendChild(marker); // Append new marker
     }
 
     // Calculate position with adjustments for centering
-    var markerX = (randomLocation.x / mapImg.naturalWidth) * 100; // Calculate x-coordinate relative to the natural width of the image
-    var markerY = (randomLocation.y / mapImg.naturalHeight) * 100; // Calculate y-coordinate relative to the natural height of the image
+    var mapContainer = mapImg.parentNode;
+    var imgAspectRatio = mapImg.naturalWidth / mapImg.naturalHeight;
+    var containerAspectRatio = mapContainer.clientWidth / mapContainer.clientHeight;
 
-    marker.style.left = markerX + "%";
-    marker.style.top = markerY + "%";
+    var markerX, markerY;
+
+    if (imgAspectRatio > containerAspectRatio) {
+        // Image is constrained by width
+        var scaleFactor = mapContainer.clientWidth / mapImg.naturalWidth;
+        markerX = randomLocation.x * scaleFactor;
+        var imgHeightScaled = mapImg.naturalHeight * scaleFactor;
+        var verticalOffset = (mapContainer.clientHeight - imgHeightScaled) / 2;
+        markerY = verticalOffset + randomLocation.y * scaleFactor;
+    } else {
+        // Image is constrained by height
+        var scaleFactor = mapContainer.clientHeight / mapImg.naturalHeight;
+        markerY = randomLocation.y * scaleFactor;
+        var imgWidthScaled = mapImg.naturalWidth * scaleFactor;
+        var horizontalOffset = (mapContainer.clientWidth - imgWidthScaled) / 2;
+        markerX = horizontalOffset + randomLocation.x * scaleFactor;
+    }
+
+    marker.style.left = markerX + "px";
+    marker.style.top = markerY + "px";
     marker.textContent = randomLocation.name;
 
     updateDropHistory(randomLocation.name);
@@ -141,11 +159,22 @@ function displayRandomSpot() {
     var y = r * Math.sin(angle);
 
     // Make coordinates align with center of the image
-    x = ((x + centerX) / canvas.naturalWidth) * 100;
-    y = ((y + centerY) / canvas.naturalHeight) * 100;
+    if (canvas.naturalWidth / canvas.naturalHeight > canvas.clientWidth / canvas.clientHeight) {
+        // Width is the limiting factor
+        var scaleFactor = canvas.clientWidth / canvas.naturalWidth;
+        var adjustedY = (canvas.clientHeight - (canvas.naturalHeight * scaleFactor)) / 2;
+        x = ((x + centerX) / canvas.naturalWidth) * canvas.clientWidth;
+        y = adjustedY + ((y + centerY) / canvas.naturalHeight) * (canvas.clientWidth / canvas.naturalWidth * canvas.naturalHeight);
+    } else {
+        // Height is the limiting factor
+        var scaleFactor = canvas.clientHeight / canvas.naturalHeight;
+        var adjustedX = (canvas.clientWidth - (canvas.naturalWidth * scaleFactor)) / 2;
+        x = adjustedX + ((x + centerX) / canvas.naturalWidth) * (canvas.clientHeight / canvas.naturalHeight * canvas.naturalWidth);
+        y = ((y + centerY) / canvas.naturalHeight) * canvas.clientHeight;
+    }
 
-    nodeMarker.style.left = x + "%";
-    nodeMarker.style.top = y + "%";
+    nodeMarker.style.left = x + "px";
+    nodeMarker.style.top = y + "px";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -154,4 +183,3 @@ document.addEventListener("DOMContentLoaded", function () {
         displayRandomSpot(); // Calls function to generate random spot when clicked.
     });
 });
-
