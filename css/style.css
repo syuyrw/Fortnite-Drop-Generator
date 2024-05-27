@@ -3,19 +3,49 @@
     src: url("Fortnite.ttf");
 }
 
-body {
-    margin: 0; /* Remove default body margin */
+html, body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    width: 100vw; /* Ensure full width */
+    height: 100vh; /* Ensure full height */
+    overflow: hidden; /* Prevent scrolling */
     background-color: #303037;
     font-family: fortnite;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.button-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #303037;
+    z-index: 10; /* Ensure buttons stay on top */
+}
+
+.map-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 5; /* Ensure map stays in the middle */
 }
 
 .map {
-    position: relative;
-    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 100vw;
-    max-height: 100vh;
-    padding-top: 100%; /* Set the height relative to width */
+    height: 100%;
     overflow: hidden;
 }
 
@@ -25,28 +55,29 @@ body {
     left: 0;
     width: 100%; /* Ensure image fills the container */
     height: 100%; /* Ensure image fills the container */
-    object-fit: contain
+    object-fit: contain;
 }
 
-
-
-.button-box {
-    position: absolute;
-    top: 3%;
+.history {
     width: 100%;
-    padding-left: 20%;
-    display: inline-block;
+    color: white;
+    font-size: 2.5vw;
+    text-align: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    padding: 1rem;
+    background-color: #303037;
+    z-index: 10; /* Ensure history stays on top */
 }
 
 button {
     border-radius: 7px;
     background-color: #235589;
     color: white;
+    margin: 0.5rem;
 }
 
 .drop-button {
     height: 6vw;
-    margin-bottom: -5.5vh;
     font-size: 5vw;
 }
 
@@ -54,30 +85,16 @@ button {
     color: white;
     font-size: 2vh;
     text-align: center;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-        1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .node-marker {
     position: absolute;
     height: 30px;
     width: 30px;
-    background-color:red;
+    background-color: red;
     opacity: 75%;
     border-radius: 50%;
     border-color: #000;
     display: block;
-}
-
-.history {
-    position: absolute;
-    color: white;
-    
-    font-size: 2.5vw;
-    top:95%;
-    left:50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-        1px 1px 0 #000;
 }

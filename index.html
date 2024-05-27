@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-
+<head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1HWWMJBJS9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1HWWMJBJS9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-1HWWMJBJS9');
-</script>
-                <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/normalize.css" />
-        <title>Fortnite Random Drop Generator (Jordans Version)</title>
-    </head>
-    <body>
-        <div class="map" id="map">
-            <img class="map-img" src="images/c5s3.png" />
-            <div class="button-box">
-                <button class="drop-button" id="drop-button" >Generate Drop</button>
-                <button class="drop-button" id="rand-spot">Random Spot</button>
-            </div>
-            <div class="history" id="history"></div>
-            <span class="node-marker" id="node-marker"></span>
+      gtag('config', 'G-1HWWMJBJS9');
+    </script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <title>Fortnite Random Drop Generator (Jordans Version)</title>
+</head>
+<body>
+    <div class="container">
+        <div class="button-box">
+            <button class="drop-button" id="drop-button">Generate Drop</button>
+            <button class="drop-button" id="rand-spot">Random Spot</button>
         </div>
-    </body>
+        <div class="map-container">
+            <div class="map" id="map">
+                <img class="map-img" src="images/c5s3.png" />
+                <span class="node-marker" id="node-marker"></span>
+            </div>
+        </div>
+        <div class="history" id="history"></div>
+    </div>
 
     <script src="scripts/generator.js"></script>
+</body>
 </html>
-
