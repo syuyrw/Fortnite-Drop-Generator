@@ -81,6 +81,7 @@ html, body {
   @media screen and (min-width: 768px) {
     .history {
       font-size: 26px; /* Font size for wider screens */
+      position: static;
     }
   }
   
