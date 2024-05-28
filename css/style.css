@@ -42,7 +42,12 @@ html, body {
     flex: 1;
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1; /* Ensure map is above history section */
+    height: 100%;
+    margin-top: -15%;
   }
   
 
