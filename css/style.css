@@ -1,3 +1,9 @@
+@media screen and (max-width: 768px) {
+    .history {
+      font-size: 5vw; /* Adjust font size for smaller screens */
+    }
+  }
+
 @font-face {
     font-family: fortnite;
     src: url("Fortnite.ttf");
@@ -19,10 +25,9 @@ html, body {
 .container {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-}
+    height: 100vh;
+  }
+  
 
 .button-box {
     width: 100%;
@@ -37,8 +42,9 @@ html, body {
     flex: 1;
     position: relative;
     overflow: hidden;
-    z-index: 5;
-}
+    z-index: 1; /* Ensure map is above history section */
+  }
+  
 
 .map {
     position: absolute;
@@ -59,6 +65,9 @@ html, body {
 }
 
 .history {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
     color: white;
     font-size: 2.5vw;
@@ -67,7 +76,14 @@ html, body {
     padding: 1rem;
     background-color: #303037;
     z-index: 10;
-}
+  }
+  
+  @media screen and (min-width: 768px) {
+    .history {
+      font-size: 26px; /* Font size for wider screens */
+    }
+  }
+  
 
 button {
     border-radius: 7px;
