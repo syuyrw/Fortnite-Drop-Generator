@@ -28,7 +28,6 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 1rem;
   background-color: #303037;
   z-index: 10;
 }
@@ -67,13 +66,15 @@ html, body {
   padding: 1rem;
   background-color: #303037;
   z-index: 10;
+  box-sizing: border-box;
+  flex-shrink: 0; /* Ensure the history section doesn't shrink */
 }
 
 button {
   border-radius: 7px;
   background-color: #235589;
   color: white;
-  margin: 0.5rem;
+  margin: .5rem !important;
 }
 
 .drop-button {
@@ -99,4 +100,21 @@ button {
   border-radius: 50%;
   border: 2px solid #000;
   transform: translate(-50%, -50%);
+}
+
+/* Ensure proper layout on mobile devices */
+@media (max-width: 600px) {
+  .history {
+    font-size: 4vw; /* Adjust font size for better readability */
+    padding: 0.5rem;
+  }
+
+  .drop-button {
+    height: 10vw; /* Adjust button size for mobile devices */
+    font-size: 5vw;
+  }
+
+  .marker {
+    font-size: 4vh; /* Adjust marker font size for better visibility on mobile */
+  }
 }
