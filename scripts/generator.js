@@ -16,6 +16,7 @@ var pois = [
     { name: "Nitrodrome", x: 1200, y: 1431 },
     { name: "Brutal Beachhead", x: 930, y: 1971 },
     { name: "Redline Rig", x: 1486, y: 1904 },
+    { name: "Shipwreck Shallows", x: 1450, y: 1272},
 ];
 
 // Retrieve the JSON string from local storage
@@ -105,17 +106,17 @@ function updateDropHistory(newDrop) {
     previousDrops.length = HISTORY_ARRAY_SIZE;
 
     // Create display for the Users
-    var history = 'Previous Drops: ';
-    for (let i = 0; i < previousDrops.length; i++) {
-        history = history + previousDrops[i];
-        if (i != previousDrops.length - 1) {
-            history = history + ", ";
-        }
-    }
+    // var history = 'Previous Drops: ';
+    // for (let i = 0; i < previousDrops.length; i++) {
+    //     history = history + previousDrops[i];
+    //     if (i != previousDrops.length - 1) {
+    //         history = history + ", ";
+    //     }
+    // }
 
-    // Display the history
-    var historyDisplay = document.getElementById('history');
-    historyDisplay.textContent = history;
+    // // Display the history
+    // var historyDisplay = document.getElementById('history');
+    // historyDisplay.textContent = history;
 
     // Store the array into local storage
     const jsonPreviousDrops = JSON.stringify(previousDrops);
