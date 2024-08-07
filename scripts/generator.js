@@ -16,7 +16,6 @@ var pois = [
     { name: "Nitrodrome", x: 1200, y: 1431 },
     { name: "Brutal Beachhead", x: 930, y: 1971 },
     { name: "Redline Rig", x: 1486, y: 1904 },
-    { name: "Shipwreck Shallows", x: 1450, y: 1272},
 ];
 
 // Retrieve the JSON string from local storage
