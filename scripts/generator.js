@@ -2,20 +2,21 @@ const HISTORY_ARRAY_SIZE = 5;
 
 // List of map locations with coordinates
 var pois = [
-    { name: "Brawler's Battleground", x: 1830, y: 1822 },
-    { name: "Classy Courts", x: 1774, y: 374 },
-    { name: "Grand Glacier", x: 2216, y: 968 },
-    { name: "Grim Gate", x: 826, y: 952 },
-    { name: "Lavish Lair", x: 1236, y: 488 },
-    { name: "Mount Olympus", x: 1884, y: 1514 },
-    { name: "Pleasant Piazza", x: 744, y: 1224 },
-    { name: "Reckless Railways", x: 1768, y: 948 },
-    { name: "Restored Reels", x: 1243, y: 1072 },
-    { name: "Sandy Steppes", x: 732, y: 1662 },
-    { name: "The Underworld", x: 576, y: 702 },
-    { name: "Nitrodrome", x: 1200, y: 1431 },
-    { name: "Brutal Beachhead", x: 930, y: 1971 },
-    { name: "Redline Rig", x: 1486, y: 1904 },
+    { name: "Brawler's Battleground", x: 1430, y: 1722 },
+    { name: "Doom's Courtyard", x: 1374, y: 474 },
+    { name: "Grand Glacier", x: 1716, y: 968 },
+    { name: "Grim Gate", x: 626, y: 952 },
+    { name: "Doomstadt", x: 906, y: 558 },
+    { name: "Mount Olympus", x: 1484, y: 1464 },
+    { name: "The Raft", x: 504, y: 1184 },
+    { name: "Reckless Railways", x: 1368, y: 948 },
+    { name: "Restored Reels", x: 943, y: 1072 },
+    { name: "Sandy Steppes", x: 532, y: 1562 },
+    { name: "The Underworld", x: 426, y: 702 },
+    { name: "Nitrodrome", x: 950, y: 1331 },
+    { name: "Brutal Beachhead", x: 710, y: 1831 },
+    { name: "Redline Rig", x: 1156, y: 1754 },
+    { name: "Castle Doom", x: 1614, y: 524 },
 ];
 
 // Retrieve the JSON string from local storage

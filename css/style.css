@@ -9,7 +9,9 @@ html, body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: #303037;
+  background-color: black;
+
+  ;
   font-family: fortnite;
   box-sizing: border-box;
   display: flex;
@@ -28,7 +30,7 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: #303037;
+  background-color: black;
   z-index: 10;
 }
 
