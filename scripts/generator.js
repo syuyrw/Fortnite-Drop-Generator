@@ -2,6 +2,7 @@ const HISTORY_ARRAY_SIZE = 5;
 
 // List of map locations with coordinates
 var pois = [
+    { name: "Rebels Roost", x: 600, y: 400 },
     { name: "Brawler's Battleground", x: 1430, y: 1722 },
     { name: "Doom's Courtyard", x: 1374, y: 474 },
     { name: "Grand Glacier", x: 1716, y: 968 },
@@ -9,7 +10,7 @@ var pois = [
     { name: "Doomstadt", x: 906, y: 558 },
     { name: "Mount Olympus", x: 1484, y: 1464 },
     { name: "The Raft", x: 504, y: 1184 },
-    { name: "Reckless Railways", x: 1368, y: 948 },
+    { name: "Freaky Fields", x: 1368, y: 948 },
     { name: "Restored Reels", x: 943, y: 1072 },
     { name: "Sandy Steppes", x: 532, y: 1562 },
     { name: "The Underworld", x: 426, y: 702 },

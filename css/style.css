@@ -59,18 +59,7 @@ html, body {
   object-fit: contain;
 }
 
-.history {
-  width: 100%;
-  color: white;
-  font-size: 2.5vw;
-  text-align: center;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  padding: 1rem;
-  background-color: #303037;
-  z-index: 10;
-  box-sizing: border-box;
-  flex-shrink: 0; /* Ensure the history section doesn't shrink */
-}
+
 
 button {
   border-radius: 7px;
