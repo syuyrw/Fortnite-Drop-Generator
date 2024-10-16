@@ -3,7 +3,7 @@ const HISTORY_ARRAY_SIZE = 5;
 // List of map locations with coordinates
 var pois = [
     { name: "Rebels Roost", x: 600, y: 400 },
-    { name: "Brawler's Battleground", x: 1430, y: 1722 },
+    { name: "Brawler's Patch", x: 1430, y: 1722 },
     { name: "Doom's Courtyard", x: 1374, y: 474 },
     { name: "Grand Glacier", x: 1716, y: 968 },
     { name: "Grim Gate", x: 626, y: 952 },
