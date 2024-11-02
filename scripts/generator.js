@@ -2,22 +2,22 @@ const HISTORY_ARRAY_SIZE = 5;
 
 // List of map locations with coordinates
 var pois = [
-    { name: "Rebels Roost", x: 600, y: 400 },
-    { name: "Brawler's Patch", x: 1430, y: 1722 },
-    { name: "Doom's Courtyard", x: 1374, y: 474 },
-    { name: "Grand Glacier", x: 1716, y: 968 },
-    { name: "Grim Gate", x: 626, y: 952 },
-    { name: "Doomstadt", x: 906, y: 558 },
-    { name: "Mount Olympus", x: 1484, y: 1464 },
-    { name: "The Raft", x: 504, y: 1184 },
-    { name: "Freaky Fields", x: 1368, y: 948 },
-    { name: "Restored Reels", x: 943, y: 1072 },
-    { name: "Sandy Steppes", x: 532, y: 1562 },
-    { name: "The Underworld", x: 426, y: 702 },
-    { name: "Nitrodrome", x: 950, y: 1331 },
-    { name: "Brutal Beachhead", x: 710, y: 1831 },
-    { name: "Redline Rig", x: 1156, y: 1754 },
-    { name: "Castle Doom", x: 1614, y: 524 },
+    { name: "The Yacht", x: 3800, y: 320 },
+    { name: "Craggy Cliffs", x: 2450, y: 460 },
+    { name: "Steamy Stacks", x: 3550, y: 720 },
+    { name: "Pleasant Park", x: 1800, y: 1020 },
+    { name: "Sweaty Sands", x: 900, y: 1520 },
+    { name: "Frenzy Farm", x: 2650, y: 1600 },
+    { name: "Dirty Docks", x: 3850, y: 1750 },
+    { name: "Salty Springs", x: 1650, y: 1800 },
+    { name: "Holly Hedges", x: 800, y: 2200 },
+    { name: "Weeping Woods", x: 1400, y: 2600 },
+    { name: "Lazy Lake", x: 2900, y: 2800 },
+    { name: "Retail Row", x: 3550, y: 2600 },
+    { name: "The Rig", x: 700, y: 3250 },
+    { name: "Slurpy Swamp", x: 1300, y: 3000 },
+    { name: "Misty Meadows", x: 2500, y: 3400 },
+    { name: "The Doggpound", x: 2100, y: 1900 },
 ];
 
 // Retrieve the JSON string from local storage
