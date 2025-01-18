@@ -15,11 +15,12 @@ var pois = [
     { name: "Warrior's Watch", x: 620, y: 1200 },
     { name: "Foxy Floodgate", x: 900, y: 1150 },
     { name: "Seaport City", x: 1350, y: 1120 },
-    { name: "Shining Span", x: 1570, y: 1070 },
+    { name: "Shattered Span", x: 1570, y: 1070 },
     { name: "Shogun's Solitude", x: 360, y: 1600 },
     { name: "Canyon Crossing", x: 600, y: 1490 },
     { name: "Masked Meadows", x: 1050, y: 1490 },
     { name: "Hopeful Heights", x: 1390, y: 1600 },
+    { name: "Kappa Factory", x: 1640, y: 1450 },
 ];
 
 // Retrieve the JSON string from local storage
