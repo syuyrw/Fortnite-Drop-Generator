@@ -11,7 +11,7 @@ var pois = [
     { name: "Foxy Floodgate", x: 600, y: 700 },
     { name: "Seaport City", x: 870, y: 680 },
     { name: "Shining Span", x: 1020, y: 670 },
-    { name: "Shogun's Solitude", x: 220, y: 1000 },
+    { name: "Vader Samurai's Solitude", x: 220, y: 1000 },
     { name: "Canyon Crossing", x: 380, y: 930 },
     { name: "Masked Meadows", x: 680, y: 950 },
     { name: "Outpost Enclave", x: 900, y: 1000 },
