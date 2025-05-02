@@ -2,11 +2,11 @@ const HISTORY_ARRAY_SIZE = 5;
 
 // List of map locations with coordinates
 var pois = [
-    { name: "Whiffy Wharf", x: 250, y: 220 },
+    { name: "Resistance Base", x: 250, y: 220 },
     { name: "Flooded Frogs", x: 530, y: 220 },
     { name: "Magic Mosses", x: 700, y: 300 },
     { name: "Pumped Power", x: 860, y: 330 },
-    { name: "Demon's Dojo", x: 1020, y: 300 },
+    { name: "First Order Base", x: 1020, y: 300 },
     { name: "Brutal Boxcars", x: 670, y: 420 },
     { name: "Foxy Floodgate", x: 600, y: 700 },
     { name: "Seaport City", x: 870, y: 680 },
@@ -14,7 +14,7 @@ var pois = [
     { name: "Shogun's Solitude", x: 220, y: 1000 },
     { name: "Canyon Crossing", x: 380, y: 930 },
     { name: "Masked Meadows", x: 680, y: 950 },
-    { name: "Hopeful Heights", x: 900, y: 1000 },
+    { name: "Outpost Enclave", x: 900, y: 1000 },
     { name: "Kappa Kappa Factory", x: 1080, y: 900 },
     { name: "Lonewolf Lair", x: 500, y: 400 },
     { name: "Shiny Shafts", x: 280, y: 520 },
