@@ -2,31 +2,32 @@ const HISTORY_ARRAY_SIZE = 5;
 
 // List of map locations with coordinates
 var pois = [
-    { name: "Resistance Base", x: 390, y: 300 },
-    { name: "Flooded Frogs", x: 780, y: 270 },
-    { name: "Magic Mosses", x: 1020, y: 400 },
-    { name: "Pumped Power", x: 1300, y: 500 },
-    { name: "First Order Base", x: 1570, y:250 },
-    { name: "Brutal Boxcars", x: 1000, y: 670 },
-    { name: "Foxy Floodgate", x: 890, y: 1100 },
-    { name: "Seaport City", x: 1350, y: 1050 },
-    { name: "Shining Span", x: 1580, y: 1020 },
-    { name: "Vader Samurai's Solitude", x: 260, y: 1600 },
-    { name: "Canyon Crossing", x: 510, y: 1450 },
-    { name: "Masked Meadows", x: 1030, y: 1460 },
+    { name: "Resistance Base", x: 440, y: 360 },
+    { name: "Flooded Frogs", x: 800, y: 360 },
+    { name: "Supernova Academy", x: 1040, y: 500 },
+    { name: "Pumped Power", x: 1320, y: 590 },
+    { name: "First Order Base", x: 1570, y: 350 },
+    { name: "Brutal Boxcars", x: 1020, y: 750 },
+    { name: "Foxy Floodgate", x: 930, y: 1130 },
+    { name: "Utopia City", x: 1350, y: 1090 },
+    { name: "Shining Span", x: 1580, y: 1080 },
+    { name: "Shogun's Solitude", x: 360, y: 1600 },
+    { name: "Canyon Crossing", x: 590, y: 1470 },
+    { name: "Demon's Domain", x: 1080, y: 1460 },
     { name: "Outpost Enclave", x: 1480, y: 1600 },
-    { name: "Kappa Kappa Factory", x: 1680, y: 1400 },
-    { name: "Lonewolf Lair", x: 750, y: 590 },
-    { name: "Shiny Shafts", x: 380, y: 800 },
-    { name: "Outlaw Oasis", x: 220, y: 1010 },
-    { name: "Crime City", x: 550, y: 1030 },
+    { name: "Kappa Kappa Factory", x: 1660, y: 1480 },
+    { name: "Lonewolf Lair", x: 790, y: 700 },
+    { name: "Shiny Shafts", x: 440, y: 880 },
+    { name: "Outlaw Oasis", x: 320, y: 1090 },
+    { name: "Crime City", x: 600, y: 1100 },
 ];
 
 // Retrieve the JSON string from local storage
-const jsonPreviousDrops = localStorage.getItem('previousDrops');
+const jsonPreviousDrops = localStorage.getItem("previousDrops");
 
 // Check if the retrieved value is not null
-var previousDrops = jsonPreviousDrops !== null ? JSON.parse(jsonPreviousDrops) : [];
+var previousDrops =
+    jsonPreviousDrops !== null ? JSON.parse(jsonPreviousDrops) : [];
 
 // Shuffle function using Fisher-Yates algorithm
 function shuffle(array) {
@@ -54,7 +55,7 @@ function displayRandomMarker() {
     var mapImg = document.querySelector(".map-img"); // Get the map image element
 
     // Try to find an existing marker
-    var marker = document.querySelector('.marker');
+    var marker = document.querySelector(".marker");
 
     // No existing marker, create a new one
     if (!marker) {
@@ -66,7 +67,8 @@ function displayRandomMarker() {
     // Calculate position with adjustments for centering
     var mapContainer = mapImg.parentNode;
     var imgAspectRatio = mapImg.naturalWidth / mapImg.naturalHeight;
-    var containerAspectRatio = mapContainer.clientWidth / mapContainer.clientHeight;
+    var containerAspectRatio =
+        mapContainer.clientWidth / mapContainer.clientHeight;
 
     var markerX, markerY;
 
@@ -123,7 +125,7 @@ function updateDropHistory(newDrop) {
 
     // Store the array into local storage
     const jsonPreviousDrops = JSON.stringify(previousDrops);
-    localStorage.setItem('previousDrops', jsonPreviousDrops);
+    localStorage.setItem("previousDrops", jsonPreviousDrops);
 }
 
 // Ensure no initial marker is displayed
@@ -147,7 +149,7 @@ function displayRandomSpot() {
     var canvas = document.querySelector(".map-img");
     var centerX = canvas.naturalWidth / 2;
     var centerY = canvas.naturalHeight / 2;
-    var radius = (canvas.naturalWidth - centerX) * .8;
+    var radius = (canvas.naturalWidth - centerX) * 0.8;
 
     // Generate random angle
     var angle = Math.random() * 2 * Math.PI;
@@ -160,17 +162,30 @@ function displayRandomSpot() {
     var y = r * Math.sin(angle);
 
     // Make coordinates align with center of the image
-    if (canvas.naturalWidth / canvas.naturalHeight > canvas.clientWidth / canvas.clientHeight) {
+    if (
+        canvas.naturalWidth / canvas.naturalHeight >
+        canvas.clientWidth / canvas.clientHeight
+    ) {
         // Width is the limiting factor
         var scaleFactor = canvas.clientWidth / canvas.naturalWidth;
-        var adjustedY = (canvas.clientHeight - (canvas.naturalHeight * scaleFactor)) / 2;
+        var adjustedY =
+            (canvas.clientHeight - canvas.naturalHeight * scaleFactor) / 2;
         x = ((x + centerX) / canvas.naturalWidth) * canvas.clientWidth;
-        y = adjustedY + ((y + centerY) / canvas.naturalHeight) * (canvas.clientWidth / canvas.naturalWidth * canvas.naturalHeight);
+        y =
+            adjustedY +
+            ((y + centerY) / canvas.naturalHeight) *
+                ((canvas.clientWidth / canvas.naturalWidth) *
+                    canvas.naturalHeight);
     } else {
         // Height is the limiting factor
         var scaleFactor = canvas.clientHeight / canvas.naturalHeight;
-        var adjustedX = (canvas.clientWidth - (canvas.naturalWidth * scaleFactor)) / 2;
-        x = adjustedX + ((x + centerX) / canvas.naturalWidth) * (canvas.clientHeight / canvas.naturalHeight * canvas.naturalWidth);
+        var adjustedX =
+            (canvas.clientWidth - canvas.naturalWidth * scaleFactor) / 2;
+        x =
+            adjustedX +
+            ((x + centerX) / canvas.naturalWidth) *
+                ((canvas.clientHeight / canvas.naturalHeight) *
+                    canvas.naturalWidth);
         y = ((y + centerY) / canvas.naturalHeight) * canvas.clientHeight;
     }
 
