@@ -1,111 +1,109 @@
 @font-face {
-  font-family: fortnite;
-  src: url("Fortnite.ttf");
+    font-family: fortnite;
+    src: url("Fortnite.ttf");
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-color: black;
-
-  ;
-  font-family: fortnite;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #0c327b;
+    font-family: fortnite;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 .button-box {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: black;
-  z-index: 10;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #0c327b;
+    z-index: 10;
 }
 
 .map-container {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  z-index: 5;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
 }
 
 .map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .map-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-
-
 button {
-  border-radius: 7px;
-  background-color: #235589;
-  color: white;
-  margin: .5rem !important;
+    border-radius: 7px;
+    background-color: #235589;
+    color: white;
+    margin: 0.5rem !important;
 }
 
 .drop-button {
-  height: 6vw;
-  font-size: 5vw;
+    height: 6vw;
+    font-size: 5vw;
 }
 
 .marker {
-  color: white;
-  font-size: 3vh !important;
-  text-align: center;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  position: absolute;
-  transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3vh !important;
+    text-align: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        1px 1px 0 #000;
+    position: absolute;
+    transform: translate(-50%, -50%);
 }
 
 .node-marker {
-  position: absolute;
-  height: 30px;
-  width: 30px;
-  background-color: red;
-  opacity: 75%;
-  border-radius: 50%;
-  border: 2px solid #000;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    background-color: red;
+    opacity: 75%;
+    border-radius: 50%;
+    border: 2px solid #000;
+    transform: translate(-50%, -50%);
 }
 
 /* Ensure proper layout on mobile devices */
 @media (max-width: 600px) {
-  .history {
-    font-size: 4vw; /* Adjust font size for better readability */
-    padding: 0.5rem;
-  }
+    .history {
+        font-size: 4vw; /* Adjust font size for better readability */
+        padding: 0.5rem;
+    }
 
-  .drop-button {
-    height: 10vw; /* Adjust button size for mobile devices */
-    font-size: 5vw;
-  }
+    .drop-button {
+        height: 10vw; /* Adjust button size for mobile devices */
+        font-size: 5vw;
+    }
 
-  .marker {
-    font-size: 4vh; /* Adjust marker font size for better visibility on mobile */
-  }
+    .marker {
+        font-size: 4vh; /* Adjust marker font size for better visibility on mobile */
+    }
 }
