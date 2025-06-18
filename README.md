@@ -10,7 +10,7 @@ The program is simple to use. All you have to do is either click the "Generate D
 
 Technologies: This programs UI was built using HTML and CSS and the program itsself was built in Javascript.
 
-Issues faced: I initially built this program so that clicking on the Generate Drop button refreshed the page, and refreshing the page generates a new location. This was a quick coding solution, but it caused issues with loading new locations, and them loading in the correct locations. It was then change by @Tweagan11 so that clicking the button did not reload the page, and instead generated a new location, and removed the old one.
+Issues faced: I initially built this program so that clicking on the Generate Drop button refreshed the page, and refreshing the page generates a new location. This was a quick coding solution, but it caused issues with loading new locations, and them loading in the correct locations. It was then changed by @Tweagan11 so that clicking the button did not reload the page, and instead generated a new location, and removed the old one.
 
 Future Features: 
 - I am going to make it so instead of there being two buttons, there will just be one button, and a switch that the user can flip to switch between generating random POI, and generating random point on map.
