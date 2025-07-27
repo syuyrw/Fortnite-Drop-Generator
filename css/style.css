@@ -33,6 +33,12 @@ body {
     z-index: 10;
 }
 
+#click-counter {
+    text-align: center;
+    color: white;
+    font-size: 25px;
+}
+
 .map-container {
     flex: 1;
     position: relative;

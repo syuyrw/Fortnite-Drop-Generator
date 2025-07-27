@@ -1,5 +1,3 @@
-const HISTORY_ARRAY_SIZE = 5;
-
 // List of map locations with coordinates
 var pois = [
     { name: "Resistance Base", x: 440, y: 360 },
@@ -22,12 +20,7 @@ var pois = [
     { name: "Crime City", x: 600, y: 1100 },
 ];
 
-// Retrieve the JSON string from local storage
-const jsonPreviousDrops = localStorage.getItem("previousDrops");
-
-// Check if the retrieved value is not null
-var previousDrops =
-    jsonPreviousDrops !== null ? JSON.parse(jsonPreviousDrops) : [];
+let buttonClicks = 0;
 
 // Shuffle function using Fisher-Yates algorithm
 function shuffle(array) {
@@ -92,48 +85,24 @@ function displayRandomMarker() {
     marker.style.top = markerY + "px";
     marker.textContent = randomLocation.name;
 
-    updateDropHistory(randomLocation.name);
-
     var nodeMarker = document.getElementById("node-marker");
     nodeMarker.style.visibility = "hidden"; // Set visibility of nodeMarker to hidden
     marker.style.visibility = "visible";
 }
 
-function updateDropHistory(newDrop) {
-    // Shift elements down one
-    for (let i = HISTORY_ARRAY_SIZE - 1; i > 0; i--) {
-        if (previousDrops[i - 1]) {
-            previousDrops[i] = previousDrops[i - 1];
-        }
-    }
-
-    previousDrops[0] = newDrop;
-    previousDrops.length = HISTORY_ARRAY_SIZE;
-
-    // Create display for the Users
-    // var history = 'Previous Drops: ';
-    // for (let i = 0; i < previousDrops.length; i++) {
-    //     history = history + previousDrops[i];
-    //     if (i != previousDrops.length - 1) {
-    //         history = history + ", ";
-    //     }
-    // }
-
-    // // Display the history
-    // var historyDisplay = document.getElementById('history');
-    // historyDisplay.textContent = history;
-
-    // Store the array into local storage
-    const jsonPreviousDrops = JSON.stringify(previousDrops);
-    localStorage.setItem("previousDrops", jsonPreviousDrops);
-}
-
-// Ensure no initial marker is displayed
-document.addEventListener("DOMContentLoaded", function () {
-    var dropButton = document.querySelector(".drop-button");
-    dropButton.addEventListener("click", function () {
-        displayRandomMarker(); // Call displayRandomMarker when the drop-button is clicked
-    });
+var dropButton = document.querySelector(".drop-button");
+dropButton.addEventListener("click", function () {
+    displayRandomMarker(); // Call displayRandomMarker when the drop-button is clicked
+    // Pull total locations generated from server https://dashboard.render.com/web/srv-d22t4rbe5dus73a0i2k0/deploys/dep-d22t4rje5dus73a0i3bg
+    fetch("https://click-tracker-server-avsz.onrender.com/click", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            document.getElementById("total").textContent = data.total.toLocaleString();
+        });
 });
 
 function displayRandomSpot() {
@@ -193,9 +162,24 @@ function displayRandomSpot() {
     nodeMarker.style.top = y + "px";
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    var randSpot = document.getElementById("rand-spot");
-    randSpot.addEventListener("click", function () {
-        displayRandomSpot(); // Calls function to generate random spot when clicked.
-    });
+var randSpot = document.getElementById("rand-spot");
+randSpot.addEventListener("click", function () {
+    displayRandomSpot(); // Calls function to generate random spot when clicked.
+    // Pull total locations generated from server https://dashboard.render.com/web/srv-d22t4rbe5dus73a0i2k0/deploys/dep-d22t4rje5dus73a0i3bg
+    fetch("https://click-tracker-server-avsz.onrender.com/click", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            document.getElementById("total").textContent = data.total.toLocaleString();
+        });
 });
+
+// Pull total locations generated from server on page load.
+fetch("https://click-tracker-server-avsz.onrender.com/clicks")
+    .then((res) => res.json())
+    .then((data) => {
+        document.getElementById("total").textContent = data.total.toLocaleString();
+    });
