@@ -101,7 +101,8 @@ dropButton.addEventListener("click", function () {
     })
         .then((res) => res.json())
         .then((data) => {
-            document.getElementById("total").textContent = data.total.toLocaleString();
+            document.getElementById("total").textContent =
+                data.total.toLocaleString();
         });
 });
 
@@ -173,7 +174,8 @@ randSpot.addEventListener("click", function () {
     })
         .then((res) => res.json())
         .then((data) => {
-            document.getElementById("total").textContent = data.total.toLocaleString();
+            document.getElementById("total").textContent =
+                data.total.toLocaleString();
         });
 });
 
@@ -181,5 +183,6 @@ randSpot.addEventListener("click", function () {
 fetch("https://click-tracker-server-avsz.onrender.com/clicks")
     .then((res) => res.json())
     .then((data) => {
-        document.getElementById("total").textContent = data.total.toLocaleString();
+        document.getElementById("total").textContent =
+            data.total.toLocaleString();
     });
