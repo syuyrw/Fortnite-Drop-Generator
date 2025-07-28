@@ -28,6 +28,7 @@ body {
 h1 {
     text-align: center;
     color: white;
+    font-size: 36px;
 }
 
 .button-box {
@@ -116,5 +117,13 @@ button {
 
     .marker {
         font-size: 4vh; /* Adjust marker font size for better visibility on mobile */
+    }
+
+    h1 {
+        font-size: 20px !important;
+    }
+
+    p {
+        font-size: 15px !important;
     }
 }
