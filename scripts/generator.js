@@ -186,3 +186,5 @@ fetch("https://click-tracker-server-avsz.onrender.com/clicks")
         document.getElementById("total").textContent =
             data.total.toLocaleString();
     });
+
+    //test
