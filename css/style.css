@@ -25,6 +25,11 @@ body {
     overflow: hidden;
 }
 
+h1 {
+    text-align: center;
+    color: white;
+}
+
 .button-box {
     width: 100%;
     display: flex;

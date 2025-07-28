@@ -1,6 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="icon" href="images/ch6s3super.png" type="image/x-icon" />
+        <meta
+            property="og:title"
+            content="Fortnite Drop Generator – Chapter 6 Map"
+        />
+        <meta
+            property="og:description"
+            content="Click to generate random Fortnite landing spots. Great for challenges and fun drops!"
+        />
+        <meta
+            property="og:url"
+            content="https://yourdomain.com/fortnite-drop-generator"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Fortnite Drop Generator – Chapter 6 Map"
+        />
+        <meta
+            name="twitter:description"
+            content="Generate random drop spots for Fortnite – Jordan's version!"
+        />
+        <meta
+            name="twitter:image"
+            content="https://yourdomain.com/images/ch6s3super.png"
+        />
+        <meta
+            name="description"
+            content="Generate random Fortnite drop locations with this interactive Chapter 6 Season 3 map. Built by Jordan for fun and strategy!"
+        />
+        <meta
+            name="keywords"
+            content="Fortnite, drop generator, Fortnite Chapter 6, random drop, Fortnite map, Fortnite strategy, Battle Royale"
+        />
         <meta property="og:image" content="images/ch6s3super.png" />
         <script
             async
@@ -26,10 +60,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/normalize.css" />
-        <title>Fortnite Random Drop Generator (Jordans Version)</title>
+        <title>
+            Fortnite Random Drop Generator - Chapter 6 Season 3, Battle Royale
+        </title>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "Fortnite Random Drop Generator",
+                "url": "https://dropgenerator.com",
+                "description": "Interactive tool to generate random Fortnite drop locations using Chapter 6 Season 3 map battle royale.",
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "All",
+                "browserRequirements": "Requires JavaScript",
+                "image": "https://dropgenerator.com/images/ch6s3super.png",
+                "author": {
+                    "@type": "Person",
+                    "name": "Jordan Reitz"
+                }
+            }
+        </script>
     </head>
     <body>
         <div class="container">
+            <h1>Fortnite Random Drop Generator – Chapter 6 Season 3</h1>
             <div class="button-box">
                 <button class="drop-button" id="drop-button">Random POI</button>
                 <button class="drop-button" id="rand-spot">Random Spot</button>
@@ -39,7 +93,12 @@
             </p>
             <div class="map-container">
                 <div class="map" id="map">
-                    <img class="map-img" src="images/ch6s3super.png" />
+                    <img
+                        class="map-img"
+                        src="images/ch6s3super.png"
+                        alt="Fortnite Chapter 6 Season 3 Map"
+                        loading="lazy"
+                    />
                     <span class="node-marker" id="node-marker"></span>
                 </div>
             </div>
