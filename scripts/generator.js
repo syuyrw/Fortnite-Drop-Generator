@@ -187,4 +187,13 @@ fetch("https://click-tracker-server-avsz.onrender.com/clicks")
             data.total.toLocaleString();
     });
 
-    //test
+//test
+
+const intervalId = setInterval(function () {
+    fetch("https://click-tracker-server-avsz.onrender.com/clicks")
+        .then((res) => res.json())
+        .then((data) => {
+            document.getElementById("total").textContent =
+                data.total.toLocaleString();
+        });
+}, 5000);
