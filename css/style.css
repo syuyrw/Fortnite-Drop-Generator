@@ -1,6 +1,6 @@
 @font-face {
-    font-family: fortnite;
-    src: url("Fortnite.ttf");
+    font-family: Nunito;
+    src: url("NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf");
 }
 
 html,
@@ -11,7 +11,7 @@ body {
     height: 100vh;
     overflow: hidden;
     background-color: #0c327b;
-    font-family: fortnite;
+    font-family: Nunito;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -72,9 +72,10 @@ h1 {
 
 button {
     border-radius: 7px;
-    background-color: #235589;
+    background-color: #3373EB;
     color: white;
     margin: 0.5rem !important;
+    border: 1px solid white;
 }
 
 .drop-button {
