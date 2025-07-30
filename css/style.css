@@ -1,6 +1,6 @@
 @font-face {
-    font-family: Nunito;
-    src: url("NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf");
+    font-family: Roboto;
+    src: url("RobotoCondensed-VariableFont_wght.ttf");
 }
 
 html,
@@ -11,7 +11,7 @@ body {
     height: 100vh;
     overflow: hidden;
     background-color: #0c327b;
-    font-family: Nunito;
+    font-family: Roboto;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -81,6 +81,7 @@ button {
 .drop-button {
     height: 6vw;
     font-size: 5vw;
+    font-weight: bold;
 }
 
 .marker {
