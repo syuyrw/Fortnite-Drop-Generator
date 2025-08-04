@@ -33,3 +33,7 @@ One thing to note is that you will need to press the "C" button after running a 
 Inspiration, code snippets, etc.
 
 -   https://www.braedin.com/FortniteRandomDrop/
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
