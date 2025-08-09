@@ -1,4 +1,3 @@
-// List of map locations with coordinates
 var pois = [
     { name: "Resistance Base", x: 440, y: 360 },
     { name: "Supernova Academy", x: 1040, y: 500 },
@@ -32,7 +31,7 @@ function shuffle(array) {
 }
 
 var shuffledPois = shuffle([...pois]); // Create a shuffled copy of the POIs
-var currentIndex = 0; // Index to keep track of the current POI in the shuffled array
+var currentIndex = 0;
 
 // Function to pick a random POI and display its name as a marker
 function displayRandomMarker() {
@@ -43,9 +42,8 @@ function displayRandomMarker() {
     }
 
     var randomLocation = shuffledPois[currentIndex]; // Get the current POI
-    currentIndex++; // Move to the next POI in the shuffled array
 
-    var mapImg = document.querySelector(".map-img"); // Get the map image element
+    var mapImg = document.querySelector(".map-img");
 
     // Try to find an existing marker
     var marker = document.querySelector(".marker");
@@ -86,13 +84,13 @@ function displayRandomMarker() {
     marker.textContent = randomLocation.name;
 
     var nodeMarker = document.getElementById("node-marker");
-    nodeMarker.style.visibility = "hidden"; // Set visibility of nodeMarker to hidden
+    nodeMarker.style.visibility = "hidden";
     marker.style.visibility = "visible";
 }
 
 var dropButton = document.querySelector(".drop-button");
 dropButton.addEventListener("click", function () {
-    displayRandomMarker(); // Call displayRandomMarker when the drop-button is clicked
+    displayRandomMarker();
     // Pull total locations generated from server https://dashboard.render.com/web/srv-d22t4rbe5dus73a0i2k0/deploys/dep-d22t4rje5dus73a0i3bg
     fetch("https://click-tracker-server-avsz.onrender.com/click", {
         method: "POST",
@@ -121,13 +119,10 @@ function displayRandomSpot() {
     var centerY = canvas.naturalHeight / 2;
     var radius = (canvas.naturalWidth - centerX) * 0.8;
 
-    // Generate random angle
     var angle = Math.random() * 2 * Math.PI;
 
-    // Generate random radius
     var r = radius * Math.sqrt(Math.random());
 
-    // Polar to Cartesian Coordinates
     var x = r * Math.cos(angle);
     var y = r * Math.sin(angle);
 
