@@ -86,6 +86,8 @@ function displayRandomMarker() {
     var nodeMarker = document.getElementById("node-marker");
     nodeMarker.style.visibility = "hidden";
     marker.style.visibility = "visible";
+
+    currentIndex++;
 }
 
 var dropButton = document.querySelector(".drop-button");
