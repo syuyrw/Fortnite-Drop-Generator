@@ -72,7 +72,7 @@ h1 {
 
 button {
     border-radius: 7px;
-    background-color: #3373EB;
+    background-color: #3373eb;
     color: white;
     margin: 0.5rem !important;
     border: 1px solid white;
@@ -80,13 +80,16 @@ button {
 
 .drop-button {
     height: 6vw;
+    max-height: 80px;
+    max-width: 400px;
     font-size: 5vw;
+    font-size: clamp(16px, 5vw, 62px);
     font-weight: bold;
 }
 
 .marker {
     color: white;
-    
+
     font-size: 25px !important;
     text-align: center;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
