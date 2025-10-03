@@ -1,22 +1,21 @@
 var pois = [
     { name: "Resistance Base", x: 440, y: 360 },
     { name: "Supernova Academy", x: 1040, y: 500 },
-    { name: "Pumped Power", x: 1320, y: 590 },
     { name: "First Order Base", x: 1570, y: 350 },
     { name: "Foxy Floodgate", x: 930, y: 1130 },
     { name: "Utopia City", x: 1350, y: 1090 },
     { name: "Shining Span", x: 1580, y: 1080 },
     { name: "Shogun's Solitude", x: 360, y: 1600 },
     { name: "Canyon Crossing", x: 590, y: 1470 },
-    { name: "Demon's Debris", x: 1080, y: 1460 },
+    { name: "Dreamy Domain", x: 1080, y: 1460 },
     { name: "Outpost Enclave", x: 1480, y: 1600 },
     { name: "Kappa Kappa Factory", x: 1660, y: 1480 },
     { name: "Shiny Shafts", x: 440, y: 880 },
     { name: "Outlaw Oasis", x: 320, y: 1090 },
-    { name: "The Hive", x: 720, y: 660 },
-    { name: "Swarmy Stash", x: 1050, y: 680 },
+    { name: "Bugswatter Beach", x: 720, y: 660 },
+    { name: "Harmony Hills", x: 1050, y: 680 },
     { name: "O.X.R. HQ", x: 1230, y: 720 },
-    { name: "Rangers Ruin", x: 620, y: 1100 },
+    { name: "Rangers Rest", x: 620, y: 1100 },
 ];
 
 let buttonClicks = 0;
