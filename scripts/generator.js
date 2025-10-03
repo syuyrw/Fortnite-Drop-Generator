@@ -1,195 +1,271 @@
-var pois = [
-    { name: "Resistance Base", x: 440, y: 360 },
-    { name: "Supernova Academy", x: 1040, y: 500 },
-    { name: "First Order Base", x: 1570, y: 350 },
-    { name: "Foxy Floodgate", x: 930, y: 1130 },
-    { name: "Utopia City", x: 1350, y: 1090 },
-    { name: "Shining Span", x: 1580, y: 1080 },
-    { name: "Shogun's Solitude", x: 360, y: 1600 },
-    { name: "Canyon Crossing", x: 590, y: 1470 },
-    { name: "Dreamy Domain", x: 1080, y: 1460 },
-    { name: "Outpost Enclave", x: 1480, y: 1600 },
-    { name: "Kappa Kappa Factory", x: 1660, y: 1480 },
-    { name: "Shiny Shafts", x: 440, y: 880 },
-    { name: "Outlaw Oasis", x: 320, y: 1090 },
-    { name: "Bugswatter Beach", x: 720, y: 660 },
-    { name: "Harmony Hills", x: 1050, y: 680 },
-    { name: "O.X.R. HQ", x: 1230, y: 720 },
-    { name: "Rangers Rest", x: 620, y: 1100 },
-];
+// generator.js (self-contained)
 
-let buttonClicks = 0;
+/* ========= DOM ========= */
+const mapWrapper  = document.querySelector('.map-wrapper'); // should be position: relative in CSS
+const mapImg      = document.querySelector('.map-img');     // <img> that displays the map
+const dropButton  = document.querySelector('.drop-button'); // "Random POI" button
+const randSpotBtn = document.getElementById('rand-spot');   // "Random Spot" button
+const totalEl     = document.getElementById('total');       // total clicks display
+const nodeMarker  = document.getElementById('node-marker'); // optional dot marker
 
-// Shuffle function using Fisher-Yates algorithm
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
+if (dropButton)  dropButton.disabled = true;
+if (randSpotBtn) randSpotBtn.disabled = true;
+
+/* ========= State ========= */
+let pois = [];                // [{ name, x, y, z }]
+let shuffledPois = [];
+let currentIndex = 0;
+
+// computed once after data load to align world <-> image
+let WORLD_CX = 0;
+let WORLD_CY = 0;
+let RANGE_X = 115000;
+let RANGE_Y = 115000;
+
+/* ========= Utils ========= */
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-var shuffledPois = shuffle([...pois]); // Create a shuffled copy of the POIs
-var currentIndex = 0;
+function waitForImage(img) {
+  return new Promise((resolve) => {
+    if (img && img.complete && img.naturalWidth > 0) return resolve();
+    img.addEventListener('load', () => resolve(), { once: true });
+  });
+}
 
-// Function to pick a random POI and display its name as a marker
+/**
+ * Convert Fortnite world coords (centered around ~0,0) -> NATURAL image pixel coords.
+ * We do NOT invert Y for this map (positive Y should map downward in pixels).
+ * Uses calibrated center (WORLD_CX/WORLD_CY) and half-ranges (RANGE_X/RANGE_Y).
+ */
+function worldToImagePixel(x, y, imgW, imgH) {
+  const halfW = imgW / 2;
+  const halfH = imgH / 2;
+
+  const sx = halfW / RANGE_X;
+  const sy = halfH / RANGE_Y;
+  const s  = Math.min(sx, sy); // keep aspect
+
+  const px = halfW + (x - WORLD_CX) * s * .66; // +x right
+  const py = halfH + (y - WORLD_CY) * s * .66; // +y down
+  return { px, py };
+}
+
+/**
+ * Convert NATURAL image pixels -> ON-SCREEN pixels inside mapWrapper (handles letterboxing).
+ */
+function imagePixelToScreen(px, py, imgW, imgH, containerW, containerH) {
+  const imgAspect = imgW / imgH;
+  const containerAspect = containerW / containerH;
+
+  if (imgAspect > containerAspect) {
+    // constrained by width
+    const scale = containerW / imgW;
+    const imgHeightScaled = imgH * scale;
+    const vOffset = (containerH - imgHeightScaled) / 2;
+    return { x: px * scale, y: vOffset + py * scale };
+  } else {
+    // constrained by height
+    const scale = containerH / imgH;
+    const imgWidthScaled = imgW * scale;
+    const hOffset = (containerW - imgWidthScaled) / 2;
+    return { x: hOffset + px * scale, y: py * scale };
+  }
+}
+
+function getOrCreateMarker() {
+  let marker = document.querySelector('.marker');
+  if (!marker) {
+    marker = document.createElement('div');
+    marker.className = 'marker';
+    (mapWrapper || mapImg.parentElement).appendChild(marker);
+  } else {
+    // ensure only one marker exists
+    document.querySelectorAll('.marker:not(:first-of-type)').forEach(m => m.remove());
+  }
+  return marker;
+}
+
+/* ========= Core actions ========= */
 function displayRandomMarker() {
-    // If all POIs have been used, reshuffle and reset index
-    if (currentIndex >= shuffledPois.length) {
-        shuffledPois = shuffle([...pois]);
-        currentIndex = 0;
-    }
+  if (!shuffledPois.length) { console.warn('POIs not ready'); return; }
+  if (!(mapImg && mapImg.naturalWidth && mapImg.naturalHeight)) { console.warn('Image not ready'); return; }
 
-    var randomLocation = shuffledPois[currentIndex]; // Get the current POI
+  if (currentIndex >= shuffledPois.length) {
+    shuffledPois = shuffle([...pois]);
+    currentIndex = 0;
+  }
 
-    var mapImg = document.querySelector(".map-img");
+  const pick = shuffledPois[currentIndex++]; // { name, x, y, z }
+  const imgW = mapImg.naturalWidth;
+  const imgH = mapImg.naturalHeight;
+  const cw   = (mapWrapper || mapImg.parentElement).clientWidth;
+  const ch   = (mapWrapper || mapImg.parentElement).clientHeight;
 
-    // Try to find an existing marker
-    var marker = document.querySelector(".marker");
+  // world -> image (natural pixels)
+  const { px, py } = worldToImagePixel(pick.x, pick.y, imgW, imgH);
+  // image -> screen (on-page pixels)
+  const { x, y } = imagePixelToScreen(px, py, imgW, imgH, cw, ch);
 
-    // No existing marker, create a new one
-    if (!marker) {
-        marker = document.createElement("div");
-        marker.classList.add("marker");
-        mapImg.parentNode.appendChild(marker); // Append new marker
-    }
+  const marker = getOrCreateMarker();
+  marker.style.left = `${x}px`;
+  marker.style.top  = `${y}px`;
+  marker.textContent = pick.name;
+  marker.style.visibility = 'visible';
 
-    // Calculate position with adjustments for centering
-    var mapContainer = mapImg.parentNode;
-    var imgAspectRatio = mapImg.naturalWidth / mapImg.naturalHeight;
-    var containerAspectRatio =
-        mapContainer.clientWidth / mapContainer.clientHeight;
-
-    var markerX, markerY;
-
-    if (imgAspectRatio > containerAspectRatio) {
-        // Image is constrained by width
-        var scaleFactor = mapContainer.clientWidth / mapImg.naturalWidth;
-        markerX = randomLocation.x * scaleFactor;
-        var imgHeightScaled = mapImg.naturalHeight * scaleFactor;
-        var verticalOffset = (mapContainer.clientHeight - imgHeightScaled) / 2;
-        markerY = verticalOffset + randomLocation.y * scaleFactor;
-    } else {
-        // Image is constrained by height
-        var scaleFactor = mapContainer.clientHeight / mapImg.naturalHeight;
-        markerY = randomLocation.y * scaleFactor;
-        var imgWidthScaled = mapImg.naturalWidth * scaleFactor;
-        var horizontalOffset = (mapContainer.clientWidth - imgWidthScaled) / 2;
-        markerX = horizontalOffset + randomLocation.x * scaleFactor;
-    }
-
-    marker.style.left = markerX + "px";
-    marker.style.top = markerY + "px";
-    marker.textContent = randomLocation.name;
-
-    var nodeMarker = document.getElementById("node-marker");
-    nodeMarker.style.visibility = "hidden";
-    marker.style.visibility = "visible";
-
-    currentIndex++;
+  if (nodeMarker) nodeMarker.style.visibility = 'hidden';
 }
-
-var dropButton = document.querySelector(".drop-button");
-dropButton.addEventListener("click", function () {
-    displayRandomMarker();
-    // Pull total locations generated from server https://dashboard.render.com/web/srv-d22t4rbe5dus73a0i2k0/deploys/dep-d22t4rje5dus73a0i3bg
-    fetch("https://click-tracker-server-avsz.onrender.com/click", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            document.getElementById("total").textContent =
-                data.total.toLocaleString();
-        });
-});
 
 function displayRandomSpot() {
-    var nodeMarker = document.getElementById("node-marker");
-    var marker = document.querySelector(".marker");
+  const marker = document.querySelector('.marker');
+  if (nodeMarker && marker) {
+    nodeMarker.style.visibility = 'visible';
+    marker.style.visibility = 'hidden';
+  }
 
-    // Check visibility and switch nodeMarker and marker if necessary
-    if (nodeMarker.style.visibility === "hidden") {
-        nodeMarker.style.visibility = "visible";
-        marker.style.visibility = "hidden";
-    }
+  if (!(mapImg && mapImg.naturalWidth && mapImg.naturalHeight)) return;
 
-    var canvas = document.querySelector(".map-img");
-    var centerX = canvas.naturalWidth / 2;
-    var centerY = canvas.naturalHeight / 2;
-    var radius = (canvas.naturalWidth - centerX) * 0.8;
+  const imgW = mapImg.naturalWidth;
+  const imgH = mapImg.naturalHeight;
+  const cw   = (mapWrapper || mapImg.parentElement).clientWidth;
+  const ch   = (mapWrapper || mapImg.parentElement).clientHeight;
 
-    var angle = Math.random() * 2 * Math.PI;
+  // random point in a circle centered on image center (natural pixel space)
+  const cx = imgW / 2;
+  const cy = imgH / 2;
+  const radius = Math.min(cx, cy) * 0.8;
 
-    var r = radius * Math.sqrt(Math.random());
+  const angle = Math.random() * Math.PI * 2;
+  const r = radius * Math.sqrt(Math.random());
+  const px = cx + r * Math.cos(angle);
+  const py = cy + r * Math.sin(angle);
 
-    var x = r * Math.cos(angle);
-    var y = r * Math.sin(angle);
+  const { x, y } = imagePixelToScreen(px, py, imgW, imgH, cw, ch);
 
-    // Make coordinates align with center of the image
-    if (
-        canvas.naturalWidth / canvas.naturalHeight >
-        canvas.clientWidth / canvas.clientHeight
-    ) {
-        // Width is the limiting factor
-        var scaleFactor = canvas.clientWidth / canvas.naturalWidth;
-        var adjustedY =
-            (canvas.clientHeight - canvas.naturalHeight * scaleFactor) / 2;
-        x = ((x + centerX) / canvas.naturalWidth) * canvas.clientWidth;
-        y =
-            adjustedY +
-            ((y + centerY) / canvas.naturalHeight) *
-                ((canvas.clientWidth / canvas.naturalWidth) *
-                    canvas.naturalHeight);
-    } else {
-        // Height is the limiting factor
-        var scaleFactor = canvas.clientHeight / canvas.naturalHeight;
-        var adjustedX =
-            (canvas.clientWidth - canvas.naturalWidth * scaleFactor) / 2;
-        x =
-            adjustedX +
-            ((x + centerX) / canvas.naturalWidth) *
-                ((canvas.clientHeight / canvas.naturalHeight) *
-                    canvas.naturalWidth);
-        y = ((y + centerY) / canvas.naturalHeight) * canvas.clientHeight;
-    }
-
-    nodeMarker.style.left = x + "px";
-    nodeMarker.style.top = y + "px";
+  if (nodeMarker) {
+    nodeMarker.style.left = `${x}px`;
+    nodeMarker.style.top  = `${y}px`;
+  }
 }
 
-var randSpot = document.getElementById("rand-spot");
-randSpot.addEventListener("click", function () {
-    displayRandomSpot(); // Calls function to generate random spot when clicked.
-    // Pull total locations generated from server https://dashboard.render.com/web/srv-d22t4rbe5dus73a0i2k0/deploys/dep-d22t4rje5dus73a0i3bg
-    fetch("https://click-tracker-server-avsz.onrender.com/click", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+/* ========= Init ========= */
+(async function init() {
+  try {
+    // Fetch map & POIs
+    const res = await fetch('https://fortnite-api.com/v1/map');
+    const json = await res.json();
+
+    // Use the BLANK map (no baked-in labels)
+    const apiMapUrl = json?.data?.images?.blank || json?.data?.images?.pois;
+    if (apiMapUrl) {
+      const imgLoaded = waitForImage(mapImg);
+      mapImg.src = apiMapUrl;
+      await imgLoaded;
+    } else {
+      await waitForImage(mapImg);
+    }
+
+    // Build named POIs with world coords
+    const rawPois = json?.data?.pois ?? [];
+    const named = rawPois.filter(p => p?.id?.startsWith('Athena.Location.POI.'));
+    pois = named.map(p => ({
+      name: p.name,
+      x: Number(p.location?.x ?? 0),
+      y: Number(p.location?.y ?? 0),
+      z: Number(p.location?.z ?? 0),
+    }));
+
+    // Calibrate world center and ranges from the dataset (removes global drift)
+    if (pois.length) {
+      const xs = pois.map(p => p.x);
+      const ys = pois.map(p => p.y);
+      const minX = Math.min(...xs), maxX = Math.max(...xs);
+      const minY = Math.min(...ys), maxY = Math.max(...ys);
+
+      WORLD_CX = (minX + maxX) / 2;
+      WORLD_CY = (minY + maxY) / 2;
+
+      // symmetric half-range about center so everything fits with preserved aspect
+      RANGE_X = Math.max(maxX - WORLD_CX, WORLD_CX - minX) || 115000;
+      RANGE_Y = Math.max(maxY - WORLD_CY, WORLD_CY - minY) || 115000;
+    }
+
+    // Prepare order
+    shuffledPois = shuffle([...pois]);
+    currentIndex = 0;
+
+    // Enable buttons now that image & data are ready
+    if (dropButton)  dropButton.disabled = false;
+    if (randSpotBtn) randSpotBtn.disabled = false;
+
+  } catch (err) {
+    console.error('Init failed:', err);
+  }
+
+  // Wire buttons
+  if (dropButton) {
+    dropButton.addEventListener('click', () => {
+      displayRandomMarker();
+
+      // Click tracker
+      fetch('https://click-tracker-server-avsz.onrender.com/click', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({}),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            document.getElementById("total").textContent =
-                data.total.toLocaleString();
-        });
-});
-
-// Pull total locations generated from server on page load.
-fetch("https://click-tracker-server-avsz.onrender.com/clicks")
-    .then((res) => res.json())
-    .then((data) => {
-        document.getElementById("total").textContent =
-            data.total.toLocaleString();
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (totalEl && data?.total != null) {
+            totalEl.textContent = Number(data.total).toLocaleString();
+          }
+        })
+        .catch(() => {});
     });
+  }
 
-//test
+  if (randSpotBtn) {
+    randSpotBtn.addEventListener('click', () => {
+      displayRandomSpot();
 
-const intervalId = setInterval(function () {
-    fetch("https://click-tracker-server-avsz.onrender.com/clicks")
-        .then((res) => res.json())
-        .then((data) => {
-            document.getElementById("total").textContent =
-                data.total.toLocaleString();
-        });
-}, 5000);
+      // Click tracker
+      fetch('https://click-tracker-server-avsz.onrender.com/click', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (totalEl && data?.total != null) {
+            totalEl.textContent = Number(data.total).toLocaleString();
+          }
+        })
+        .catch(() => {});
+    });
+  }
+
+  // Initial total + polling
+  fetch('https://click-tracker-server-avsz.onrender.com/clicks')
+    .then(r => r.json())
+    .then(data => {
+      if (totalEl && data?.total != null) {
+        totalEl.textContent = Number(data.total).toLocaleString();
+      }
+    })
+    .catch(() => {});
+
+  setInterval(() => {
+    fetch('https://click-tracker-server-avsz.onrender.com/clicks')
+      .then(r => r.json())
+      .then(data => {
+        if (totalEl && data?.total != null) {
+          totalEl.textContent = Number(data.total).toLocaleString();
+        }
+      })
+      .catch(() => {});
+  }, 5000);
+})();
