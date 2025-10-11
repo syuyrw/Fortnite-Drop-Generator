@@ -1,2 +1,0 @@
-# Redirect /ads.txt to AdstxtManager (permanent 301)
-Redirect 301 /ads.txt https://srv.adstxtmanager.com/19390/dropgenerator.com
