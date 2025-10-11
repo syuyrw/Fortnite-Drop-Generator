@@ -1,0 +1,43 @@
+name: Update ads.txt from AdstxtManager
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "17 * * * *"  # hourly at :17; tweak as you like
+
+jobs:
+  sync-ads-txt:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to push the file back
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch ads.txt from AdstxtManager
+        run: |
+          set -e
+          curl -fsSL "https://srv.adstxtmanager.com/19390/dropgenerator.com" -o ads.txt.new
+          # Ensure it’s plain text and non-empty
+          if [ ! -s ads.txt.new ]; then
+            echo "Downloaded ads.txt is empty; aborting."
+            exit 1
+          fi
+          # Only replace if changed
+          if [ -f ads.txt ] && diff -q ads.txt.new ads.txt >/dev/null; then
+            echo "No changes to ads.txt."
+            exit 0
+          fi
+          mv ads.txt.new ads.txt
+
+      - name: Commit and push if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add ads.txt
+            git commit -m "chore: sync ads.txt from AdstxtManager"
+            git push
+          else
+            echo "Nothing to commit."
+          fi
