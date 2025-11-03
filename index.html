@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        
-
         <link
             rel="icon"
             href="https://fortnite-api.com/images/map.png"
@@ -102,6 +100,11 @@
             <div class="history" id="history"></div>
         </div>
 
-        <script src="scripts/generator.js"></script>
+        <script>
+            const version = new Date().getTime(); // unique on every load
+            const script = document.createElement("script");
+            script.src = `scripts/generator.js?v=${version}`;
+            document.head.appendChild(script);
+        </script>
     </body>
 </html>
