@@ -46,7 +46,7 @@ h1 {
 
 .button-box {
     position: absolute;
-    top: 70px;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -60,7 +60,7 @@ h1 {
 
 #click-counter {
     position: absolute;
-    top: 125px;
+    top: 140px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
