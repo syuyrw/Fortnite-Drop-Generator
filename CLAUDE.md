@@ -42,6 +42,15 @@ Only one is visible at a time; they toggle each other's `visibility`.
 
 Deployed via GitHub Pages from the `main` branch. The `CNAME` file sets the custom domain `dropgenerator.com`. Push to `main` to deploy.
 
+## Git Workflow
+
+After every change, always:
+1. `git add` the modified files
+2. Commit with a clean, descriptive message summarizing what changed and why
+3. `git push origin main` to sync with GitHub
+
+This keeps a full version history on GitHub so any change can be reverted easily.
+
 ## Known Quirks
 
 - The `* 0.66` scale factor in `worldToImagePixel()` is a calibration constant — don't remove it without re-testing marker placement across multiple POIs.
