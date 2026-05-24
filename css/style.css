@@ -31,14 +31,14 @@ body {
 h1 {
     text-align: center;
     color: white;
-    font-size: 192px;
+    font-size: 280px;
     letter-spacing: 0;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 4px;
     margin: 0;
     font-family: "Luckiest Guy", sans-serif;
     text-transform: uppercase;
-    line-height: 0.9;
+    line-height: 0.8;
 }
 
 .button-box {
