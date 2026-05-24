@@ -10,7 +10,7 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-color: #0c327b;
+    background-color: #1a1a1a;
     font-family: Roboto;
     box-sizing: border-box;
     display: flex;
@@ -35,7 +35,7 @@ h1 {
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: #0c327b;
+    background-color: #1a1a1a;
     z-index: 10;
 }
 
@@ -89,10 +89,20 @@ h1 {
 
 button {
     border-radius: 7px;
-    background-color: #3373eb;
+    background-color: transparent;
     color: white;
     margin: 0.5rem !important;
     border: 1px solid white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+button:active {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .drop-button {
