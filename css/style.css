@@ -65,6 +65,7 @@ h1 {
     position: relative;
     overflow: hidden;
     z-index: 5;
+    width: 100%;
 }
 
 .map {
