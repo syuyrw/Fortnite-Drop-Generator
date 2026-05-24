@@ -31,12 +31,14 @@ body {
 h1 {
     text-align: center;
     color: white;
-    font-size: 72px;
-    letter-spacing: 0.5px;
+    font-size: 80px;
+    letter-spacing: -1px;
     padding-top: 80px;
     padding-bottom: 12px;
     margin: 0;
-    font-weight: 300;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
 }
 
 .button-box {
