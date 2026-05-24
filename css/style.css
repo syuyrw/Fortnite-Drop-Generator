@@ -184,23 +184,30 @@ button:focus-visible {
 
 
 /* Ensure proper layout on mobile devices */
-@media (max-width: 600px) {
-    .history {
-        font-size: 4vw; /* Adjust font size for better readability */
-        padding: 0.5rem;
+@media (max-width: 768px) {
+    h1 {
+        font-size: 120px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .button-box {
+        top: 50%;
+        transform: translateX(-50%) translateY(80px);
+    }
+
+    #click-counter {
+        top: 50%;
+        transform: translateX(-50%) translateY(140px);
     }
 
     .drop-button {
-        height: 10vw; /* Adjust button size for mobile devices */
-        font-size: 5vw;
+        padding: 10px 24px;
+        font-size: 16px;
     }
 
     .marker {
-        font-size: 4vh; /* Adjust marker font size for better visibility on mobile */
-    }
-
-    h1 {
-        font-size: 20px !important;
+        font-size: 4vh;
     }
 
     p {
