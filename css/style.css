@@ -203,8 +203,8 @@ button:focus-visible {
     }
 
     .drop-button {
-        padding: 10px 20px;
-        font-size: 14px;
+        padding: 16px 32px;
+        font-size: 20px;
     }
 
     .marker {
