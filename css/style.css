@@ -103,13 +103,13 @@ h1 {
 
     mask-image: radial-gradient(
         circle,
-        black 30%,
-        transparent 60%
+        black 25%,
+        transparent 50%
     );
     -webkit-mask-image: radial-gradient(
         circle,
-        black 30%,
-        transparent 60%
+        black 25%,
+        transparent 50%
     );
 }
 
