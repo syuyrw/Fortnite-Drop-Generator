@@ -185,6 +185,25 @@ button:focus-visible {
 
 /* Ensure proper layout on mobile devices */
 @media (max-width: 768px) {
+    .map-img {
+        mask-image: radial-gradient(
+            circle,
+            black 30%,
+            rgba(0,0,0,0.9) 35%,
+            rgba(0,0,0,0.6) 40%,
+            rgba(0,0,0,0) 50%,
+            transparent 65%
+        );
+        -webkit-mask-image: radial-gradient(
+            circle,
+            black 30%,
+            rgba(0,0,0,0.9) 35%,
+            rgba(0,0,0,0.6) 40%,
+            rgba(0,0,0,0) 50%,
+            transparent 65%
+        );
+    }
+
     h1 {
         font-size: 120px;
         top: 40px;
