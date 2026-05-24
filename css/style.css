@@ -34,7 +34,7 @@ h1 {
     font-size: 72px;
     letter-spacing: 0.5px;
     padding-top: 80px;
-    padding-bottom: 32px;
+    padding-bottom: 12px;
     margin: 0;
     font-weight: 300;
 }
@@ -45,7 +45,7 @@ h1 {
     gap: 24px;
     background-color: #1a1a1a;
     z-index: 10;
-    padding: 40px 20px 0;
+    padding: 12px 20px 0;
     flex-wrap: wrap;
 }
 
