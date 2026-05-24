@@ -188,19 +188,19 @@ button:focus-visible {
     .map-img {
         mask-image: radial-gradient(
             circle,
-            black 25%,
-            rgba(0,0,0,0.9) 32%,
-            rgba(0,0,0,0.7) 38%,
-            rgba(0,0,0,0) 45%,
-            transparent 58%
+            black 20%,
+            rgba(0,0,0,0.9) 28%,
+            rgba(0,0,0,0.7) 34%,
+            rgba(0,0,0,0) 41%,
+            transparent 54%
         );
         -webkit-mask-image: radial-gradient(
             circle,
-            black 25%,
-            rgba(0,0,0,0.9) 32%,
-            rgba(0,0,0,0.7) 38%,
-            rgba(0,0,0,0) 45%,
-            transparent 58%
+            black 20%,
+            rgba(0,0,0,0.9) 28%,
+            rgba(0,0,0,0.7) 34%,
+            rgba(0,0,0,0) 41%,
+            transparent 54%
         );
     }
 
