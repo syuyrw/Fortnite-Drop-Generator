@@ -186,24 +186,25 @@ button:focus-visible {
 /* Ensure proper layout on mobile devices */
 @media (max-width: 768px) {
     h1 {
-        font-size: 120px;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        font-size: 60px;
+        top: 20px;
+        transform: translateX(-50%);
+        line-height: 0.9;
     }
 
     .button-box {
-        top: 50%;
-        transform: translateX(-50%) translateY(80px);
+        top: 100px;
+        transform: translateX(-50%);
     }
 
     #click-counter {
-        top: 50%;
-        transform: translateX(-50%) translateY(140px);
+        top: 150px;
+        transform: translateX(-50%);
     }
 
     .drop-button {
-        padding: 10px 24px;
-        font-size: 16px;
+        padding: 10px 20px;
+        font-size: 14px;
     }
 
     .marker {
