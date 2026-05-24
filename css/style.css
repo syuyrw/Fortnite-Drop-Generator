@@ -214,6 +214,8 @@ button:focus-visible {
     .button-box {
         top: 80vh;
         transform: translateX(-50%);
+        gap: 12px;
+        flex-wrap: nowrap;
     }
 
     #click-counter {
@@ -222,8 +224,10 @@ button:focus-visible {
     }
 
     .drop-button {
-        padding: 16px 32px;
-        font-size: 20px;
+        padding: 12px 20px;
+        font-size: 16px;
+        flex: 1;
+        min-width: 0;
     }
 
     .marker {
