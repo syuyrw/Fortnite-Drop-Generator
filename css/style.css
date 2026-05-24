@@ -102,19 +102,19 @@ h1 {
     object-fit: contain;
 
     mask-image: radial-gradient(
-        ellipse,
-        black 48%,
-        rgba(0,0,0,0.8) 53%,
-        rgba(0,0,0,0.4) 58%,
-        rgba(0,0,0,0) 63%,
+        ellipse closest-side,
+        black 30%,
+        rgba(0,0,0,0.8) 40%,
+        rgba(0,0,0,0.4) 50%,
+        rgba(0,0,0,0) 60%,
         transparent 100%
     );
     -webkit-mask-image: radial-gradient(
-        ellipse,
-        black 48%,
-        rgba(0,0,0,0.8) 53%,
-        rgba(0,0,0,0.4) 58%,
-        rgba(0,0,0,0) 63%,
+        ellipse closest-side,
+        black 30%,
+        rgba(0,0,0,0.8) 40%,
+        rgba(0,0,0,0.4) 50%,
+        rgba(0,0,0,0) 60%,
         transparent 100%
     );
 }
