@@ -100,6 +100,50 @@ function getOrCreateMarker() {
   return marker;
 }
 
+/* ========= SEO ========= */
+function updateMetadata(seasonName = "Fortnite", seasonNumber = null) {
+  const title = seasonNumber
+    ? `Fortnite Chapter ${seasonNumber} Drop Generator`
+    : `${seasonName} Drop Generator`;
+
+  const description = seasonNumber
+    ? `Generate random landing spots and POI locations in Fortnite Chapter ${seasonNumber}. Interactive map for finding the best drop locations.`
+    : "Generate random Fortnite drop locations and POI spots with this interactive map tool.";
+
+  // Update page title
+  document.title = title;
+  document.getElementById("page-title").textContent = title;
+
+  // Update meta tags
+  document.getElementById("meta-description").content = description;
+  document.getElementById("og-title").content = title;
+  document.getElementById("og-description").content = description;
+  document.getElementById("twitter-title").content = title;
+  document.getElementById("twitter-description").content = description;
+
+  // Update schema.org structured data
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": title,
+    "url": "https://dropgenerator.com",
+    "description": description,
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "image": "https://fortnite-api.com/images/map.png",
+    "author": {
+      "@type": "Person",
+      "name": "Jordan Reitz"
+    },
+    "creator": {
+      "@type": "Person",
+      "name": "Jordan Reitz"
+    }
+  };
+  document.getElementById("schema-json").textContent = JSON.stringify(schema);
+}
+
 /* ========= Tracking ========= */
 async function trackClick() {
   try {
@@ -214,6 +258,16 @@ function displayRandomSpot() {
     const res = await fetch("https://fortnite-api.com/v1/map");
     if (!res.ok) throw new Error(`Map fetch failed: ${res.status}`);
     const json = await res.json();
+
+    // Extract season info for SEO
+    const currentSeason = json?.data?.season;
+    if (currentSeason) {
+      const seasonNumber = currentSeason?.number;
+      const seasonName = currentSeason?.name || "Fortnite";
+      updateMetadata(seasonName, seasonNumber);
+    } else {
+      updateMetadata();
+    }
 
     // Use the BLANK map (no baked-in labels)
     const apiMapUrl = json?.data?.images?.blank || json?.data?.images?.pois;
