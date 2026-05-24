@@ -132,7 +132,7 @@ button:focus-visible {
 }
 
 .drop-button {
-    padding: 20px 48px;
+    padding: 12px 32px;
     max-width: 350px;
     font-size: 24px;
     font-weight: 600;
