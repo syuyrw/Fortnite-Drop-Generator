@@ -212,16 +212,16 @@ button:focus-visible {
         line-height: 0.9;
     }
 
+    #click-counter {
+        top: 75vh;
+        transform: translateX(-50%);
+    }
+
     .button-box {
-        top: 80vh;
+        top: 83vh;
         transform: translateX(-50%);
         gap: 12px;
         flex-wrap: nowrap;
-    }
-
-    #click-counter {
-        top: 88vh;
-        transform: translateX(-50%);
     }
 
     .drop-button {
