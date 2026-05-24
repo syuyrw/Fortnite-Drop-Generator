@@ -101,14 +101,25 @@ function getOrCreateMarker() {
 }
 
 /* ========= SEO ========= */
-function updateMetadata(seasonName = "Fortnite", seasonNumber = null) {
+function generateDynamicKeywords(poiList = []) {
+  const baseKeywords = ["Fortnite", "drop generator", "random drop", "map", "POI", "landing spots"];
+  if (poiList.length > 0) {
+    const topPois = poiList.slice(0, 8).map((p) => p.name);
+    return [...baseKeywords, ...topPois].join(", ");
+  }
+  return baseKeywords.join(", ");
+}
+
+function updateMetadata(seasonName = "Fortnite", seasonNumber = null, poiList = []) {
   const title = seasonNumber
-    ? `Fortnite Chapter ${seasonNumber} Drop Generator`
-    : `${seasonName} Drop Generator`;
+    ? `Fortnite Chapter ${seasonNumber} Drop Generator - Random POI Map`
+    : `${seasonName} Drop Generator - Interactive Map Tool`;
 
   const description = seasonNumber
-    ? `Generate random landing spots and POI locations in Fortnite Chapter ${seasonNumber}. Interactive map for finding the best drop locations.`
-    : "Generate random Fortnite drop locations and POI spots with this interactive map tool.";
+    ? `Generate random landing spots and POI locations in Fortnite Chapter ${seasonNumber}. Use our interactive map to find the best drop spots for your next match. Featured locations: ${poiList.slice(0, 3).map((p) => p.name).join(", ")}.`
+    : "Generate random Fortnite drop locations and POI spots with this interactive map tool. Find the best landing spots for your strategy.";
+
+  const keywords = generateDynamicKeywords(poiList);
 
   // Update page title
   document.title = title;
@@ -116,22 +127,30 @@ function updateMetadata(seasonName = "Fortnite", seasonNumber = null) {
 
   // Update meta tags
   document.getElementById("meta-description").content = description;
+  document.getElementById("meta-keywords").content = keywords;
   document.getElementById("og-title").content = title;
   document.getElementById("og-description").content = description;
+  document.getElementById("og-image-alt").content = `Interactive Fortnite Chapter ${seasonNumber || ""} map showing POI locations`;
   document.getElementById("twitter-title").content = title;
   document.getElementById("twitter-description").content = description;
 
   // Update schema.org structured data
-  const schema = {
+  const schemaData = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": title,
     "url": "https://dropgenerator.com",
     "description": description,
+    "keywords": keywords,
     "applicationCategory": "GameApplication",
     "operatingSystem": "All",
     "browserRequirements": "Requires JavaScript",
-    "image": "https://fortnite-api.com/images/map.png",
+    "image": {
+      "@type": "ImageObject",
+      "url": "https://fortnite-api.com/images/map.png",
+      "width": 2048,
+      "height": 2048
+    },
     "author": {
       "@type": "Person",
       "name": "Jordan Reitz"
@@ -139,9 +158,97 @@ function updateMetadata(seasonName = "Fortnite", seasonNumber = null) {
     "creator": {
       "@type": "Person",
       "name": "Jordan Reitz"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
     }
   };
-  document.getElementById("schema-json").textContent = JSON.stringify(schema);
+
+  // Add BreadcrumbList schema
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://dropgenerator.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": title,
+        "item": "https://dropgenerator.com"
+      }
+    ]
+  };
+
+  // Add FAQPage schema
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Fortnite Drop Generator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Fortnite Drop Generator is an interactive tool that helps you find random landing spots and POI locations on the Fortnite Battle Royale map."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use this Fortnite map tool?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Click the 'Random POI' button to get a named location or 'Random Spot' button to get a random coordinate. The map will highlight your randomly selected landing spot."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this Fortnite drop tool free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, this interactive Fortnite map drop generator is completely free to use. No registration or payment required."
+        }
+      }
+    ]
+  };
+
+  // Update main schema
+  document.getElementById("schema-json").textContent = JSON.stringify(schemaData);
+
+  // Add additional schemas to body
+  let schemaContainer = document.getElementById("seo-schemas");
+  if (!schemaContainer) {
+    schemaContainer = document.createElement("div");
+    schemaContainer.id = "seo-schemas";
+    schemaContainer.style.display = "none";
+    document.body.appendChild(schemaContainer);
+  }
+
+  // Create or update breadcrumb schema
+  let breadcrumbScript = document.getElementById("breadcrumb-schema");
+  if (!breadcrumbScript) {
+    breadcrumbScript = document.createElement("script");
+    breadcrumbScript.id = "breadcrumb-schema";
+    breadcrumbScript.type = "application/ld+json";
+    document.head.appendChild(breadcrumbScript);
+  }
+  breadcrumbScript.textContent = JSON.stringify(breadcrumbs);
+
+  // Create or update FAQ schema
+  let faqScript = document.getElementById("faq-schema");
+  if (!faqScript) {
+    faqScript = document.createElement("script");
+    faqScript.id = "faq-schema";
+    faqScript.type = "application/ld+json";
+    document.head.appendChild(faqScript);
+  }
+  faqScript.textContent = JSON.stringify(faqSchema);
 }
 
 /* ========= Tracking ========= */
@@ -261,13 +368,20 @@ function displayRandomSpot() {
 
     // Extract season info for SEO
     const currentSeason = json?.data?.season;
-    if (currentSeason) {
-      const seasonNumber = currentSeason?.number;
-      const seasonName = currentSeason?.name || "Fortnite";
-      updateMetadata(seasonName, seasonNumber);
-    } else {
-      updateMetadata();
-    }
+    const seasonNumber = currentSeason?.number;
+    const seasonName = currentSeason?.name || "Fortnite";
+
+    // Build POI list for SEO (will be populated after filtering)
+    const rawPois = json?.data?.pois ?? [];
+    const named = rawPois.filter((p) => p?.id?.startsWith("Athena.Location.POI."));
+    const seoPoiList = named.map((p) => ({
+      name: p.name,
+      x: Number(p.location?.x ?? 0),
+      y: Number(p.location?.y ?? 0),
+      z: Number(p.location?.z ?? 0),
+    }));
+
+    updateMetadata(seasonName, seasonNumber, seoPoiList);
 
     // Use the BLANK map (no baked-in labels)
     const apiMapUrl = json?.data?.images?.blank || json?.data?.images?.pois;
@@ -280,15 +394,8 @@ function displayRandomSpot() {
       await waitForImage(mapImg);
     }
 
-    // Build named POIs with world coords
-    const rawPois = json?.data?.pois ?? [];
-    const named = rawPois.filter((p) => p?.id?.startsWith("Athena.Location.POI."));
-    pois = named.map((p) => ({
-      name: p.name,
-      x: Number(p.location?.x ?? 0),
-      y: Number(p.location?.y ?? 0),
-      z: Number(p.location?.z ?? 0),
-    }));
+    // Use the POI list from SEO for main functionality
+    pois = seoPoiList;
 
     // Calibrate world center and ranges from the dataset (removes global drift)
     if (pois.length) {
