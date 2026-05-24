@@ -172,11 +172,12 @@ function displayRandomMarker() {
 }
 
 function displayRandomSpot() {
+  // Show the red dot marker
+  if (nodeMarker) nodeMarker.style.visibility = "visible";
+
+  // Hide any existing text marker (if it exists)
   const marker = document.querySelector(".marker");
-  if (nodeMarker && marker) {
-    nodeMarker.style.visibility = "visible";
-    marker.style.visibility = "hidden";
-  }
+  if (marker) marker.style.visibility = "hidden";
 
   if (!(mapImg && mapImg.naturalWidth && mapImg.naturalHeight)) return;
 
