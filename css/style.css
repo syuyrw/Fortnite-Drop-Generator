@@ -128,6 +128,9 @@ button {
     transition: all 0.2s ease;
     font-weight: 600;
     letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 button:hover {
