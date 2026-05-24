@@ -34,7 +34,7 @@ h1 {
     font-size: 96px;
     letter-spacing: 0;
     padding-top: 80px;
-    padding-bottom: 12px;
+    padding-bottom: 4px;
     margin: 0;
     font-family: "Luckiest Guy", sans-serif;
     text-transform: uppercase;
@@ -47,7 +47,7 @@ h1 {
     gap: 24px;
     background-color: #1a1a1a;
     z-index: 10;
-    padding: 12px 20px 0;
+    padding: 4px 20px 0;
     flex-wrap: wrap;
 }
 
