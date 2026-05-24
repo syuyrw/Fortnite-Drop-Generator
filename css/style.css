@@ -28,9 +28,9 @@ body {
 
 h1 {
     position: absolute;
-    top: 50%;
+    top: 20px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     text-align: center;
     color: white;
     font-size: 380px;
@@ -46,7 +46,7 @@ h1 {
 
 .button-box {
     position: absolute;
-    top: 55%;
+    top: 340px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -60,7 +60,7 @@ h1 {
 
 #click-counter {
     position: absolute;
-    top: 63%;
+    top: 400px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
