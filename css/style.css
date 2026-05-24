@@ -186,7 +186,7 @@ button:focus-visible {
 /* Ensure proper layout on mobile devices */
 @media (max-width: 768px) {
     h1 {
-        font-size: 60px;
+        font-size: 120px;
         top: 40px;
         transform: translateX(-50%);
         line-height: 0.9;
