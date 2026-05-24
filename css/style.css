@@ -187,22 +187,19 @@ button:focus-visible {
 @media (max-width: 768px) {
     h1 {
         font-size: 60px;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        top: 40px;
+        transform: translateX(-50%);
         line-height: 0.9;
-        margin-top: -80px;
     }
 
     .button-box {
-        top: 50%;
-        transform: translate(-50%, -50%);
-        margin-top: 20px;
+        top: 110px;
+        transform: translateX(-50%);
     }
 
     #click-counter {
-        top: 50%;
-        transform: translate(-50%, -50%);
-        margin-top: 80px;
+        top: 160px;
+        transform: translateX(-50%);
     }
 
     .drop-button {
