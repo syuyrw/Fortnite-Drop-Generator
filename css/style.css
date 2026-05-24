@@ -180,6 +180,7 @@ button:focus-visible {
     border-radius: 50%;
     border: 2px solid #000;
     transform: translate(-50%, -50%);
+    visibility: hidden;
 }
 
 
