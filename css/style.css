@@ -193,12 +193,12 @@ button:focus-visible {
     }
 
     .button-box {
-        top: 135px;
+        top: 85vh;
         transform: translateX(-50%);
     }
 
     #click-counter {
-        top: 190px;
+        top: 90vh;
         transform: translateX(-50%);
     }
 
