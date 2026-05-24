@@ -238,3 +238,23 @@ button:focus-visible {
         font-size: 15px !important;
     }
 }
+
+/* Tablet (iPad Pro and similar) */
+@media (min-width: 769px) and (max-height: 1100px) {
+    .button-box {
+        top: 80vh;
+        gap: 12px;
+        flex-wrap: nowrap;
+    }
+
+    #click-counter {
+        top: 88vh;
+    }
+
+    .drop-button {
+        padding: 12px 20px;
+        font-size: 16px;
+        flex: 1;
+        min-width: 0;
+    }
+}
