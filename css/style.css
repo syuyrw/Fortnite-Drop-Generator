@@ -46,12 +46,12 @@ h1 {
 
 .button-box {
     position: absolute;
-    top: 120px;
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    gap: 36px;
+    gap: 24px;
     z-index: 10;
     padding: 0 20px;
     flex-wrap: wrap;
@@ -60,13 +60,13 @@ h1 {
 
 #click-counter {
     position: absolute;
-    top: 210px;
+    top: 160px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     color: rgba(255, 255, 255, 0.5);
-    font-size: 21px;
-    letter-spacing: 0.3px;
+    font-size: 14px;
+    letter-spacing: 0.2px;
     font-weight: 400;
     z-index: 10;
     width: 100%;
@@ -149,9 +149,9 @@ button:focus-visible {
 }
 
 .drop-button {
-    padding: 18px 48px;
-    max-width: 525px;
-    font-size: 36px;
+    padding: 15px 40px;
+    max-width: 437px;
+    font-size: 30px;
     font-weight: 600;
     border-radius: 50px;
 }
