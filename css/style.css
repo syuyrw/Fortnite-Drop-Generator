@@ -33,8 +33,8 @@ h1 {
     transform: translateX(-50%);
     text-align: center;
     color: white;
-    font-size: 855px;
-    letter-spacing: 3px;
+    font-size: 570px;
+    letter-spacing: 2px;
     margin: 0;
     font-family: "Luckiest Guy", sans-serif;
     text-transform: uppercase;
@@ -46,7 +46,7 @@ h1 {
 
 .button-box {
     position: absolute;
-    top: 100px;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -60,7 +60,7 @@ h1 {
 
 #click-counter {
     position: absolute;
-    top: 160px;
+    top: 140px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -149,9 +149,9 @@ button:focus-visible {
 }
 
 .drop-button {
-    padding: 15px 40px;
-    max-width: 437px;
-    font-size: 30px;
+    padding: 12px 32px;
+    max-width: 350px;
+    font-size: 24px;
     font-weight: 600;
     border-radius: 50px;
 }
