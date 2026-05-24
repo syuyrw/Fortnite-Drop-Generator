@@ -1,26 +1,31 @@
 // generator.js (self-contained)
 
 /* ========= DOM ========= */
-const mapWrapper = document.querySelector(".map-wrapper"); // should be position: relative in CSS
-const mapImg = document.querySelector(".map-img"); // <img> that displays the map
-const dropButton = document.querySelector(".drop-button"); // "Random POI" button
-const randSpotBtn = document.getElementById("rand-spot"); // "Random Spot" button
-const totalEl = document.getElementById("total"); // total clicks display
-const nodeMarker = document.getElementById("node-marker"); // optional dot marker
+const mapWrapper = document.querySelector(".map-wrapper");
+const mapImg = document.querySelector(".map-img");
+const dropButton = document.querySelector(".drop-button");
+const randSpotBtn = document.getElementById("rand-spot");
+const totalEl = document.getElementById("total");
+const nodeMarker = document.getElementById("node-marker");
 
 if (dropButton) dropButton.disabled = true;
 if (randSpotBtn) randSpotBtn.disabled = true;
 
+/* ========= Constants ========= */
+const DEFAULT_RANGE = 115000;
+const RANDOM_SPOT_RADIUS_FACTOR = 0.8;
+const WORLD_COORD_SCALE = 0.66;
+const CLICK_TRACKER_URL = "https://click-tracker-server-avsz.onrender.com";
+const POLL_INTERVAL_MS = 5000;
+
 /* ========= State ========= */
-let pois = []; // [{ name, x, y, z }]
+let pois = [];
 let shuffledPois = [];
 let currentIndex = 0;
-
-// computed once after data load to align world <-> image
 let WORLD_CX = 0;
 let WORLD_CY = 0;
-let RANGE_X = 115000;
-let RANGE_Y = 115000;
+let RANGE_X = DEFAULT_RANGE;
+let RANGE_Y = DEFAULT_RANGE;
 
 /* ========= Utils ========= */
 function shuffle(arr) {
@@ -53,8 +58,8 @@ function worldToImagePixel(x, y, imgW, imgH) {
   const sy = halfH / RANGE_Y;
   const s = Math.min(sx, sy); // keep aspect
 
-  const px = halfW + (x - WORLD_CX) * s * 0.66; // try removing *0.66 if labels are offset
-  const py = halfH + (y - WORLD_CY) * s * 0.66;
+  const px = halfW + (x - WORLD_CX) * s * WORLD_COORD_SCALE;
+  const py = halfH + (y - WORLD_CY) * s * WORLD_COORD_SCALE;
   return { px, py };
 }
 
@@ -93,6 +98,35 @@ function getOrCreateMarker() {
     document.querySelectorAll(".marker:not(:first-of-type)").forEach((m) => m.remove());
   }
   return marker;
+}
+
+/* ========= Tracking ========= */
+async function trackClick() {
+  try {
+    const res = await fetch(`${CLICK_TRACKER_URL}/click`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+    });
+    const data = await res.json();
+    if (totalEl && data?.total != null) {
+      totalEl.textContent = Number(data.total).toLocaleString();
+    }
+  } catch (err) {
+    // silently fail if tracker is unavailable
+  }
+}
+
+async function updateClickCount() {
+  try {
+    const res = await fetch(`${CLICK_TRACKER_URL}/clicks`);
+    const data = await res.json();
+    if (totalEl && data?.total != null) {
+      totalEl.textContent = Number(data.total).toLocaleString();
+    }
+  } catch (err) {
+    // silently fail if tracker is unavailable
+  }
 }
 
 /* ========= Core actions ========= */
@@ -157,7 +191,7 @@ function displayRandomSpot() {
   // random point in a circle centered on image center (natural pixel space)
   const cx = imgW / 2;
   const cy = imgH / 2;
-  const radius = Math.min(cx, cy) * 0.8;
+  const radius = Math.min(cx, cy) * RANDOM_SPOT_RADIUS_FACTOR;
 
   const angle = Math.random() * Math.PI * 2;
   const r = radius * Math.sqrt(Math.random());
@@ -231,61 +265,18 @@ function displayRandomSpot() {
   if (dropButton) {
     dropButton.addEventListener("click", () => {
       displayRandomMarker();
-
-      // Click tracker
-      fetch("https://click-tracker-server-avsz.onrender.com/click", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      })
-        .then((r) => r.json())
-        .then((data) => {
-          if (totalEl && data?.total != null) {
-            totalEl.textContent = Number(data.total).toLocaleString();
-          }
-        })
-        .catch(() => {});
+      trackClick();
     });
   }
 
   if (randSpotBtn) {
     randSpotBtn.addEventListener("click", () => {
       displayRandomSpot();
-
-      // Click tracker
-      fetch("https://click-tracker-server-avsz.onrender.com/click", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      })
-        .then((r) => r.json())
-        .then((data) => {
-          if (totalEl && data?.total != null) {
-            totalEl.textContent = Number(data.total).toLocaleString();
-          }
-        })
-        .catch(() => {});
+      trackClick();
     });
   }
 
   // Initial total + polling
-  fetch("https://click-tracker-server-avsz.onrender.com/clicks")
-    .then((r) => r.json())
-    .then((data) => {
-      if (totalEl && data?.total != null) {
-        totalEl.textContent = Number(data.total).toLocaleString();
-      }
-    })
-    .catch(() => {});
-
-  setInterval(() => {
-    fetch("https://click-tracker-server-avsz.onrender.com/clicks")
-      .then((r) => r.json())
-      .then((data) => {
-        if (totalEl && data?.total != null) {
-          totalEl.textContent = Number(data.total).toLocaleString();
-        }
-      })
-      .catch(() => {});
-  }, 5000);
+  updateClickCount();
+  setInterval(updateClickCount, POLL_INTERVAL_MS);
 })();
