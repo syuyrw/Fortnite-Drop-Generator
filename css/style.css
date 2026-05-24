@@ -103,18 +103,18 @@ h1 {
 
     mask-image: radial-gradient(
         circle,
-        black 45%,
-        rgba(0,0,0,0.8) 50%,
-        rgba(0,0,0,0.4) 55%,
-        rgba(0,0,0,0) 60%,
+        black 48%,
+        rgba(0,0,0,0.8) 53%,
+        rgba(0,0,0,0.4) 58%,
+        rgba(0,0,0,0) 63%,
         transparent 100%
     );
     -webkit-mask-image: radial-gradient(
         circle,
-        black 45%,
-        rgba(0,0,0,0.8) 50%,
-        rgba(0,0,0,0.4) 55%,
-        rgba(0,0,0,0) 60%,
+        black 48%,
+        rgba(0,0,0,0.8) 53%,
+        rgba(0,0,0,0.4) 58%,
+        rgba(0,0,0,0) 63%,
         transparent 100%
     );
 }
@@ -188,19 +188,19 @@ button:focus-visible {
     .map-img {
         mask-image: radial-gradient(
             circle,
-            black 30%,
-            rgba(0,0,0,0.9) 35%,
-            rgba(0,0,0,0.6) 40%,
-            rgba(0,0,0,0) 50%,
-            transparent 65%
+            black 25%,
+            rgba(0,0,0,0.9) 32%,
+            rgba(0,0,0,0.7) 38%,
+            rgba(0,0,0,0) 45%,
+            transparent 58%
         );
         -webkit-mask-image: radial-gradient(
             circle,
-            black 30%,
-            rgba(0,0,0,0.9) 35%,
-            rgba(0,0,0,0.6) 40%,
-            rgba(0,0,0,0) 50%,
-            transparent 65%
+            black 25%,
+            rgba(0,0,0,0.9) 32%,
+            rgba(0,0,0,0.7) 38%,
+            rgba(0,0,0,0) 45%,
+            transparent 58%
         );
     }
 
