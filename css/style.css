@@ -222,6 +222,7 @@ button:focus-visible {
         transform: translateX(-50%);
         gap: 12px;
         flex-wrap: nowrap;
+        margin-top: 5px;
     }
 
     .drop-button {
