@@ -213,7 +213,7 @@ button:focus-visible {
     }
 
     #click-counter {
-        top: 72svh;
+        top: 78svh;
         transform: translateX(-50%);
     }
 
