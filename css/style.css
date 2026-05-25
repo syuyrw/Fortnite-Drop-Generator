@@ -251,8 +251,8 @@ button:focus-visible {
     }
 }
 
-/* Tablet (iPad Pro and similar) */
-@media (min-width: 769px) and (max-width: 1366px) {
+/* Tablet and Desktop */
+@media (min-width: 769px) {
     #click-counter {
         top: 80vh;
     }
