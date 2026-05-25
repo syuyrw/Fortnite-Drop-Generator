@@ -215,12 +215,12 @@ button:focus-visible {
     }
 
     #click-counter {
-        top: 74svh;
+        top: 74vh;
         transform: translateX(-50%);
     }
 
     .button-box {
-        top: 82svh;
+        top: 82vh;
         transform: translateX(-50%);
         gap: 12px;
         flex-wrap: nowrap;
@@ -245,11 +245,11 @@ button:focus-visible {
 /* Tablet (iPad Pro and similar) */
 @media (min-width: 769px) and (max-width: 1366px) {
     #click-counter {
-        top: 80svh;
+        top: 80vh;
     }
 
     .button-box {
-        top: 88svh;
+        top: 88vh;
         gap: 12px;
         flex-wrap: nowrap;
     }
