@@ -162,7 +162,7 @@ button:focus-visible {
 
 .marker {
     color: white;
-    font-size: 18px !important;
+    font-size: 24px !important;
     text-align: center;
     font-weight: 600;
     text-shadow: 0 0 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.8),
