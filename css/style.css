@@ -162,7 +162,7 @@ button:focus-visible {
 
 .marker {
     color: white;
-    font-size: 24px !important;
+    font-size: 18px !important;
     text-align: center;
     font-weight: 600;
     text-shadow: 0 0 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.8),
@@ -187,6 +187,13 @@ button:focus-visible {
     visibility: hidden;
 }
 
+
+/* Desktop marker size */
+@media (min-width: 769px) {
+    .marker {
+        font-size: 24px !important;
+    }
+}
 
 /* Ensure proper layout on mobile devices */
 @media (max-width: 768px) {
