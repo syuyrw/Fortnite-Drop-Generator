@@ -270,6 +270,7 @@ button:focus-visible {
     top: 0;
     width: 350px;
     height: 100vh;
+    height: 100dvh;
     background-color: #2a2a2a;
     border-left: 2px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
@@ -385,4 +386,30 @@ button:focus-visible {
 .poi-sidebar-overlay.active {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* Mobile optimization for POI sidebar */
+@media (max-width: 480px) {
+    .poi-sidebar {
+        width: 85vw;
+        max-width: 320px;
+        right: -85vw;
+    }
+
+    .poi-sidebar.open {
+        right: 0;
+    }
+
+    .poi-list {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .poi-item {
+        padding: 8px 10px;
+    }
+
+    .poi-item label {
+        font-size: 13px;
+    }
 }
