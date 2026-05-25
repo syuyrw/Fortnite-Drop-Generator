@@ -17,6 +17,7 @@ body {
     flex-direction: column;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    touch-action: manipulation;
 }
 
 .container {
