@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link
+            rel="icon"
+            href="https://fortnite-api.com/images/map.png"
+            type="image/x-icon"
+        />
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <link rel="canonical" href="https://dropgenerator.com/og" />
+        <meta
+            id="meta-description"
+            name="description"
+            content="Generate random Fortnite OG drop locations with this interactive map. Find the best POIs and landing spots for OG Chapter 1 Season 1."
+        />
+        <meta
+            id="meta-keywords"
+            name="keywords"
+            content="Fortnite OG, drop generator, random drop, OG map, Fortnite strategy, Battle Royale, POI, landing spots, Chapter 1"
+        />
+        <meta id="og-title" property="og:title" content="Fortnite OG Drop Generator" />
+        <meta
+            id="og-description"
+            property="og:description"
+            content="Generate random Fortnite OG landing spots and POI locations with this interactive map tool."
+        />
+        <meta property="og:url" content="https://dropgenerator.com/og" />
+        <meta property="og:type" content="website" />
+        <meta
+            id="og-image"
+            property="og:image"
+            content="https://fortnite-api.com/images/map.png"
+        />
+        <meta property="og:image:width" content="2048" />
+        <meta property="og:image:height" content="2048" />
+        <meta id="og-image-alt" property="og:image:alt" content="Fortnite OG Battle Royale Map" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta id="twitter-title" name="twitter:title" content="Fortnite OG Drop Generator" />
+        <meta
+            id="twitter-description"
+            name="twitter:description"
+            content="Generate random Fortnite OG landing spots and POI locations with this interactive map tool."
+        />
+        <meta
+            id="twitter-image"
+            name="twitter:image"
+            content="https://fortnite-api.com/images/map.png"
+        />
+        <meta name="twitter:creator" content="@FortniteGame" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fortnite-api.com" />
+        <link rel="dns-prefetch" href="https://click-tracker-server-avsz.onrender.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css?v=43" />
+        <link rel="stylesheet" href="css/normalize.css" />
+        <title id="page-title">Fortnite OG Drop Generator</title>
+
+        <!-- Structured Data -->
+        <script id="schema-json" type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "Fortnite OG Drop Generator",
+                "url": "https://dropgenerator.com/og",
+                "description": "Generate random Fortnite OG drop locations and POI spots with this interactive map tool.",
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "All",
+                "browserRequirements": "Requires JavaScript",
+                "image": "https://fortnite-api.com/images/map.png",
+                "author": {
+                    "@type": "Person",
+                    "name": "Jordan Reitz"
+                },
+                "creator": {
+                    "@type": "Person",
+                    "name": "Jordan Reitz"
+                }
+            }
+        </script>
+
+        <!-- Google Analytics -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-1HWWMJBJS9"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-1HWWMJBJS9");
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Fortnite OG Random Drop<br>Generator</h1>
+            <div class="button-box">
+                <button class="drop-button" id="drop-button">Random POI</button>
+                <button class="drop-button" id="rand-spot">Random Spot</button>
+            </div>
+            <p id="click-counter">
+                Total locations generated: <span id="total">0</span>
+            </p>
+            <div class="map-container">
+                <div class="map" id="map">
+                    <img
+                        class="map-img"
+                        src="https://fortnite-api.com/images/map.png"
+                        alt="Interactive Fortnite OG Battle Royale map for generating random drop locations and POI spots"
+                        title="Click to generate random Fortnite OG drop spots"
+                        loading="lazy"
+                        width="2048"
+                        height="2048"
+                    />
+                    <span class="node-marker" id="node-marker"></span>
+                </div>
+            </div>
+            <div class="history" id="history"></div>
+        </div>
+
+        <script>
+            const version = new Date().getTime();
+            const script = document.createElement("script");
+            script.src = `scripts/og-generator.js?v=${version}`;
+            document.head.appendChild(script);
+        </script>
+    </body>
+</html>
