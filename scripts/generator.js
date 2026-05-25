@@ -141,7 +141,11 @@ function populatePoiList() {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = `poi-${poi.name}`;
-    checkbox.checked = !excludedPois.has(poi.name);
+    const isSelected = !excludedPois.has(poi.name);
+    checkbox.checked = isSelected;
+    if (isSelected) {
+      checkbox.setAttribute('checked', 'checked');
+    }
     checkbox.addEventListener("change", (e) => {
       if (e.target.checked) {
         excludedPois.delete(poi.name);
