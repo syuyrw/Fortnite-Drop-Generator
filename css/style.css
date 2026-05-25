@@ -215,12 +215,12 @@ button:focus-visible {
     }
 
     #click-counter {
-        top: 78svh;
+        top: 76svh;
         transform: translateX(-50%);
     }
 
     .button-box {
-        top: 80.5svh;
+        top: 82svh;
         transform: translateX(-50%);
         gap: 12px;
         flex-wrap: nowrap;
