@@ -262,3 +262,127 @@ button:focus-visible {
         min-width: 0;
     }
 }
+
+/* POI Sidebar */
+.poi-sidebar {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 350px;
+    height: 100vh;
+    background-color: #2a2a2a;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.poi-sidebar.open {
+    right: 0;
+}
+
+.poi-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    background-color: #2a2a2a;
+}
+
+.poi-sidebar-header h2 {
+    margin: 0;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.poi-sidebar-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.poi-sidebar-close:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.poi-sidebar-controls {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.poi-control-btn {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.poi-list {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.poi-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.poi-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.poi-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.poi-item label {
+    flex: 1;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.poi-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.poi-sidebar-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}

@@ -59,7 +59,7 @@
         <link rel="preconnect" href="https://fortnite-api.com" />
         <link rel="dns-prefetch" href="https://click-tracker-server-avsz.onrender.com" />
         <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="css/style.css?v=44" />
+        <link rel="stylesheet" href="css/style.css?v=45" />
         <link rel="stylesheet" href="css/normalize.css" />
         <title id="page-title">Fortnite Drop Generator</title>
 
@@ -106,6 +106,7 @@
             <div class="button-box">
                 <button class="drop-button" id="drop-button">Random POI</button>
                 <button class="drop-button" id="rand-spot">Random Spot</button>
+                <button class="drop-button" id="filter-button">Filter POIs</button>
             </div>
             <p id="click-counter">
                 Total locations generated: <span id="total">0</span>
@@ -125,6 +126,20 @@
                 </div>
             </div>
             <div class="history" id="history"></div>
+
+            <!-- POI Filter Sidebar -->
+            <div class="poi-sidebar" id="poi-sidebar">
+                <div class="poi-sidebar-header">
+                    <h2>Filter POIs</h2>
+                    <button class="poi-sidebar-close" id="sidebar-close">×</button>
+                </div>
+                <div class="poi-sidebar-controls">
+                    <button class="poi-control-btn" id="select-all">Select All</button>
+                    <button class="poi-control-btn" id="deselect-all">Deselect All</button>
+                </div>
+                <div class="poi-list" id="poi-list"></div>
+            </div>
+            <div class="poi-sidebar-overlay" id="poi-overlay"></div>
         </div>
 
         <script>

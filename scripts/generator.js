@@ -7,6 +7,13 @@ const dropButton = document.querySelector(".drop-button");
 const randSpotBtn = document.getElementById("rand-spot");
 const totalEl = document.getElementById("total");
 const nodeMarker = document.getElementById("node-marker");
+const filterButton = document.getElementById("filter-button");
+const poiSidebar = document.getElementById("poi-sidebar");
+const poiOverlay = document.getElementById("poi-overlay");
+const sidebarClose = document.getElementById("sidebar-close");
+const selectAllBtn = document.getElementById("select-all");
+const deselectAllBtn = document.getElementById("deselect-all");
+const poiList = document.getElementById("poi-list");
 
 if (dropButton) dropButton.disabled = true;
 if (randSpotBtn) randSpotBtn.disabled = true;
@@ -26,6 +33,9 @@ let WORLD_CX = 0;
 let WORLD_CY = 0;
 let RANGE_X = DEFAULT_RANGE;
 let RANGE_Y = DEFAULT_RANGE;
+let excludedPois = new Set();
+
+const STORAGE_KEY = "fortnite_excluded_pois";
 
 /* ========= Utils ========= */
 function shuffle(arr) {
@@ -98,6 +108,80 @@ function getOrCreateMarker() {
     document.querySelectorAll(".marker:not(:first-of-type)").forEach((m) => m.remove());
   }
   return marker;
+}
+
+/* ========= POI Filtering ========= */
+function loadExcludedPois() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      excludedPois = new Set(JSON.parse(stored));
+    }
+  } catch (err) {
+    console.error("Failed to load excluded POIs:", err);
+  }
+}
+
+function saveExcludedPois() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...excludedPois]));
+  } catch (err) {
+    console.error("Failed to save excluded POIs:", err);
+  }
+}
+
+function populatePoiList() {
+  if (!poiList || !pois.length) return;
+
+  poiList.innerHTML = "";
+  pois.forEach((poi) => {
+    const item = document.createElement("div");
+    item.className = "poi-item";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = `poi-${poi.name}`;
+    checkbox.checked = !excludedPois.has(poi.name);
+    checkbox.addEventListener("change", (e) => {
+      if (e.target.checked) {
+        excludedPois.delete(poi.name);
+      } else {
+        excludedPois.add(poi.name);
+      }
+      saveExcludedPois();
+      updateFilterButtonText();
+    });
+
+    const label = document.createElement("label");
+    label.htmlFor = `poi-${poi.name}`;
+    label.textContent = poi.name;
+
+    item.appendChild(checkbox);
+    item.appendChild(label);
+    poiList.appendChild(item);
+  });
+}
+
+function updateFilterButtonText() {
+  if (!filterButton) return;
+  const count = excludedPois.size;
+  filterButton.textContent = count > 0 ? `Filter POIs (${count})` : "Filter POIs";
+}
+
+function toggleSidebar(open = null) {
+  const shouldOpen = open !== null ? open : !poiSidebar.classList.contains("open");
+
+  if (shouldOpen) {
+    poiSidebar.classList.add("open");
+    poiOverlay.classList.add("active");
+  } else {
+    poiSidebar.classList.remove("open");
+    poiOverlay.classList.remove("active");
+  }
+}
+
+function getFilteredPois() {
+  return pois.filter((poi) => !excludedPois.has(poi.name));
 }
 
 /* ========= SEO ========= */
@@ -282,8 +366,9 @@ async function updateClickCount() {
 
 /* ========= Core actions ========= */
 function displayRandomMarker() {
-  if (!shuffledPois.length) {
-    console.warn("POIs not ready");
+  const filteredPois = getFilteredPois();
+  if (!filteredPois.length) {
+    console.warn("No POIs available after filtering");
     return;
   }
   if (!(mapImg && mapImg.naturalWidth && mapImg.naturalHeight)) {
@@ -291,8 +376,9 @@ function displayRandomMarker() {
     return;
   }
 
-  if (currentIndex >= shuffledPois.length) {
-    shuffledPois = shuffle([...pois]);
+  if (currentIndex >= filteredPois.length) {
+    const shuffled = shuffle([...filteredPois]);
+    shuffledPois = shuffled;
     currentIndex = 0;
   }
 
@@ -361,6 +447,9 @@ function displayRandomSpot() {
 /* ========= Init ========= */
 (async function init() {
   try {
+    // Load excluded POIs from localStorage
+    loadExcludedPois();
+
     // Fetch map & POIs (JSON endpoint)
     const res = await fetch("https://fortnite-api.com/v1/map");
     if (!res.ok) throw new Error(`Map fetch failed: ${res.status}`);
@@ -412,9 +501,14 @@ function displayRandomSpot() {
       RANGE_Y = Math.max(maxY - WORLD_CY, WORLD_CY - minY) || 115000;
     }
 
-    // Prepare order
-    shuffledPois = shuffle([...pois]);
+    // Prepare order with filtered POIs
+    const filteredPois = getFilteredPois();
+    shuffledPois = shuffle([...filteredPois]);
     currentIndex = 0;
+
+    // Populate POI list and update filter button
+    populatePoiList();
+    updateFilterButtonText();
 
     // Enable buttons now that image & data are ready
     if (dropButton) dropButton.disabled = false;
@@ -435,6 +529,43 @@ function displayRandomSpot() {
     randSpotBtn.addEventListener("click", () => {
       displayRandomSpot();
       trackClick();
+    });
+  }
+
+  // Filter button and sidebar
+  if (filterButton) {
+    filterButton.addEventListener("click", () => {
+      toggleSidebar(true);
+    });
+  }
+
+  if (sidebarClose) {
+    sidebarClose.addEventListener("click", () => {
+      toggleSidebar(false);
+    });
+  }
+
+  if (poiOverlay) {
+    poiOverlay.addEventListener("click", () => {
+      toggleSidebar(false);
+    });
+  }
+
+  if (selectAllBtn) {
+    selectAllBtn.addEventListener("click", () => {
+      excludedPois.clear();
+      saveExcludedPois();
+      populatePoiList();
+      updateFilterButtonText();
+    });
+  }
+
+  if (deselectAllBtn) {
+    deselectAllBtn.addEventListener("click", () => {
+      excludedPois = new Set(pois.map((p) => p.name));
+      saveExcludedPois();
+      populatePoiList();
+      updateFilterButtonText();
     });
   }
 
