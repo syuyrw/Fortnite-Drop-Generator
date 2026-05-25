@@ -438,6 +438,15 @@ function displayRandomSpot() {
     });
   }
 
+  // Keyboard shortcut: Space bar generates random POI
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" && !dropButton.disabled) {
+      e.preventDefault();
+      displayRandomMarker();
+      trackClick();
+    }
+  });
+
   // Initial total + polling
   updateClickCount();
   setInterval(updateClickCount, POLL_INTERVAL_MS);
