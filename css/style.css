@@ -215,14 +215,16 @@ button:focus-visible {
     #click-counter {
         top: 78svh;
         transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 8px 16px;
+        border-radius: 8px;
     }
 
     .button-box {
-        top: 80svh;
+        top: 80.5svh;
         transform: translateX(-50%);
         gap: 12px;
         flex-wrap: nowrap;
-        margin-top: 5px;
     }
 
     .drop-button {
