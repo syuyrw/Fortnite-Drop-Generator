@@ -79,7 +79,7 @@ function updateMapEdgeOverlay(img) {
   overlay.style.top = top + "px";
   overlay.style.width = width + "px";
   overlay.style.height = height + "px";
-  overlay.style.background = `radial-gradient(circle, transparent 0%, transparent 80%, rgba(11, 48, 113, 0.4) 90%, rgb(11, 48, 113) 100%)`;
+  overlay.style.background = `radial-gradient(ellipse at center, transparent 0%, transparent 70%, rgba(11, 48, 113, 0.5) 85%, rgb(11, 48, 113) 100%)`;
 }
 
 /**
