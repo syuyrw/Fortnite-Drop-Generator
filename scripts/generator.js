@@ -461,20 +461,14 @@ function displayRandomSpot() {
     console.warn("Could not sample map colors for island detection:", e);
   }
 
-  // random point in a circle centered on image center (natural pixel space)
-  const cx = imgW / 2;
-  const cy = imgH / 2;
-  const radius = Math.min(cx, cy) * RANDOM_SPOT_RADIUS_FACTOR;
-
+  // Generate random point anywhere on the map
   let px, py;
   let attempts = 0;
   const maxAttempts = 100;
 
   do {
-    const angle = Math.random() * Math.PI * 2;
-    const r = radius * Math.sqrt(Math.random());
-    px = cx + r * Math.cos(angle);
-    py = cy + r * Math.sin(angle);
+    px = Math.random() * imgW;
+    py = Math.random() * imgH;
     attempts++;
 
     try {
