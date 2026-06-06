@@ -46,43 +46,6 @@ function shuffle(arr) {
   return arr;
 }
 
-function updateBackgroundFromMapEdges(img) {
-  try {
-    // Create a canvas and attempt to sample pixels
-    const canvas = document.createElement("canvas");
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = Math.min(centerX, centerY) * 0.95;
-
-    // Sample colors at many angles around the edge (64 samples for smooth gradient)
-    const angleCount = 64;
-    const colorStops = [];
-
-    for (let i = 0; i < angleCount; i++) {
-      const angle = (i / angleCount) * Math.PI * 2;
-      const x = Math.floor(centerX + Math.cos(angle) * radius);
-      const y = Math.floor(centerY + Math.sin(angle) * radius);
-      const data = ctx.getImageData(x, y, 1, 1).data;
-      const color = `rgb(${data[0]},${data[1]},${data[2]})`;
-      const angleDeg = (i / angleCount) * 360;
-      colorStops.push(`${color} ${angleDeg}deg`);
-    }
-
-    // Create conic gradient that matches edge colors at each angle
-    const conicGradient = `conic-gradient(from 0deg at 50% 50%, ${colorStops.join(", ")})`;
-    document.body.style.background = conicGradient;
-  } catch (err) {
-    // Fallback: use a typical Fortnite map color gradient (blue water)
-    console.warn("Could not sample map colors, using fallback gradient:", err);
-    document.body.style.background = `conic-gradient(from 0deg at 50% 50%, #0a5abf 0deg, #1a7acf 90deg, #0a5abf 180deg, #1a7acf 270deg, #0a5abf 360deg)`;
-  }
-}
-
 function waitForImage(img) {
   return new Promise((resolve, reject) => {
     if (!img) return reject(new Error("waitForImage called with null img"));
@@ -524,9 +487,6 @@ function displayRandomSpot() {
       await waitForImage(mapImg);
     }
 
-    // Update background to match map edge colors
-    updateBackgroundFromMapEdges(mapImg);
-    window.addEventListener("resize", () => updateBackgroundFromMapEdges(mapImg));
 
     // Use the POI list from SEO for main functionality
     pois = seoPoiList;
