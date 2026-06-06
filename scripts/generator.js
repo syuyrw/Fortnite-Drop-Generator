@@ -57,34 +57,29 @@ function updateBackgroundFromMapEdges(img) {
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = Math.min(centerX, centerY) * 0.9;
+    const radius = Math.min(centerX, centerY) * 0.95;
 
-    // Sample 16 colors around the edge
-    let totalR = 0, totalG = 0, totalB = 0;
-    const angleCount = 16;
+    // Sample colors at many angles around the edge (64 samples for smooth gradient)
+    const angleCount = 64;
+    const colorStops = [];
 
     for (let i = 0; i < angleCount; i++) {
       const angle = (i / angleCount) * Math.PI * 2;
       const x = Math.floor(centerX + Math.cos(angle) * radius);
       const y = Math.floor(centerY + Math.sin(angle) * radius);
       const data = ctx.getImageData(x, y, 1, 1).data;
-      totalR += data[0];
-      totalG += data[1];
-      totalB += data[2];
+      const color = `rgb(${data[0]},${data[1]},${data[2]})`;
+      const angleDeg = (i / angleCount) * 360;
+      colorStops.push(`${color} ${angleDeg}deg`);
     }
 
-    const avgR = totalR / angleCount;
-    const avgG = totalG / angleCount;
-    const avgB = totalB / angleCount;
-
-    const edgeColor = `rgb(${Math.round(avgR)},${Math.round(avgG)},${Math.round(avgB)})`;
-    const centerColor = `rgb(${Math.round(Math.min(avgR * 1.4, 255))},${Math.round(Math.min(avgG * 1.4, 255))},${Math.round(Math.min(avgB * 1.4, 255))})`;
-
-    document.body.style.background = `radial-gradient(ellipse 50vw 50vh at 50% 50%, ${centerColor} 0%, ${edgeColor} 100%)`;
+    // Create conic gradient that matches edge colors at each angle
+    const conicGradient = `conic-gradient(from 0deg at 50% 50%, ${colorStops.join(", ")})`;
+    document.body.style.background = conicGradient;
   } catch (err) {
     // Fallback: use a typical Fortnite map color gradient (blue water)
     console.warn("Could not sample map colors, using fallback gradient:", err);
-    document.body.style.background = `radial-gradient(ellipse 50vw 50vh at 50% 50%, #3a6a9c 0%, #1a2a4c 100%)`;
+    document.body.style.background = `conic-gradient(from 0deg at 50% 50%, #0a5abf 0deg, #1a7acf 90deg, #0a5abf 180deg, #1a7acf 270deg, #0a5abf 360deg)`;
   }
 }
 
