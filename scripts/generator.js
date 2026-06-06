@@ -55,6 +55,33 @@ function waitForImage(img) {
   });
 }
 
+function updateMapEdgeOverlay(img) {
+  const container = img.closest(".map-container");
+  if (!container) return;
+
+  const containerRect = container.getBoundingClientRect();
+  const imgRect = img.getBoundingClientRect();
+
+  // Position overlay to match image bounds
+  const left = imgRect.left - containerRect.left;
+  const top = imgRect.top - containerRect.top;
+  const width = imgRect.width;
+  const height = imgRect.height;
+
+  let overlay = document.getElementById("map-edge-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "map-edge-overlay";
+    container.appendChild(overlay);
+  }
+
+  overlay.style.left = left + "px";
+  overlay.style.top = top + "px";
+  overlay.style.width = width + "px";
+  overlay.style.height = height + "px";
+  overlay.style.background = `radial-gradient(circle, transparent 0%, transparent 80%, rgba(11, 48, 113, 0.4) 90%, rgb(11, 48, 113) 100%)`;
+}
+
 /**
  * Convert Fortnite world coords (centered around ~0,0) -> NATURAL image pixel coords.
  * We do NOT invert Y for this map (positive Y should map downward in pixels).
@@ -486,6 +513,10 @@ function displayRandomSpot() {
       // if your HTML already has a src
       await waitForImage(mapImg);
     }
+
+    // Create edge overlay that fades to background color
+    updateMapEdgeOverlay(mapImg);
+    window.addEventListener("resize", () => updateMapEdgeOverlay(mapImg));
 
 
 
