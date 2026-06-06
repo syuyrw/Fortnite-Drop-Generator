@@ -100,12 +100,6 @@ h1 {
     overflow: hidden;
 }
 
-#map-edge-overlay {
-    position: absolute;
-    pointer-events: none;
-    z-index: 10;
-}
-
 .map-img {
     position: relative;
     width: 100%;
