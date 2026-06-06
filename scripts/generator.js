@@ -72,6 +72,9 @@ function updateMapEdgeOverlay(img) {
   if (!overlay) {
     overlay = document.createElement("div");
     overlay.id = "map-edge-overlay";
+    overlay.style.position = "absolute";
+    overlay.style.pointerEvents = "none";
+    overlay.style.zIndex = "10";
     container.appendChild(overlay);
   }
 
@@ -79,7 +82,7 @@ function updateMapEdgeOverlay(img) {
   overlay.style.top = top + "px";
   overlay.style.width = width + "px";
   overlay.style.height = height + "px";
-  overlay.style.background = `radial-gradient(ellipse at center, transparent 0%, transparent 55%, rgba(11, 48, 113, 0.7) 75%, rgb(11, 48, 113) 100%)`;
+  overlay.style.background = `radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(11, 48, 113, 0.8) 75%, rgb(11, 48, 113) 100%)`;
 }
 
 /**
