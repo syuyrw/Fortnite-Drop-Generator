@@ -108,15 +108,15 @@ h1 {
     mask-image: radial-gradient(
         circle min(50vw, 50vh) at 50% 50%,
         black 0%,
-        rgba(0,0,0,0.9) 70%,
-        rgba(0,0,0,0.5) 85%,
+        rgba(0,0,0,0.9) 75%,
+        rgba(0,0,0,0.5) 90%,
         transparent 100%
     );
     -webkit-mask-image: radial-gradient(
         circle min(50vw, 50vh) at 50% 50%,
         black 0%,
-        rgba(0,0,0,0.9) 70%,
-        rgba(0,0,0,0.5) 85%,
+        rgba(0,0,0,0.9) 75%,
+        rgba(0,0,0,0.5) 90%,
         transparent 100%
     );
 }
@@ -199,15 +199,15 @@ button:focus-visible {
         mask-image: radial-gradient(
             circle min(50vw, 50vh) at 50% 50%,
             black 0%,
-            rgba(0,0,0,0.9) 70%,
-            rgba(0,0,0,0.5) 85%,
+            rgba(0,0,0,0.9) 75%,
+            rgba(0,0,0,0.5) 90%,
             transparent 100%
         );
         -webkit-mask-image: radial-gradient(
             circle min(50vw, 50vh) at 50% 50%,
             black 0%,
-            rgba(0,0,0,0.9) 70%,
-            rgba(0,0,0,0.5) 85%,
+            rgba(0,0,0,0.9) 75%,
+            rgba(0,0,0,0.5) 90%,
             transparent 100%
         );
     }
