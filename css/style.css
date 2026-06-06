@@ -106,18 +106,18 @@ h1 {
     object-fit: contain;
 
     mask-image: radial-gradient(
-        farthest-corner at center,
+        circle min(50vw, 50vh) at 50% 50%,
         black 0%,
-        rgba(0,0,0,0.9) 40%,
-        rgba(0,0,0,0.5) 65%,
-        transparent 85%
+        rgba(0,0,0,0.9) 70%,
+        rgba(0,0,0,0.5) 85%,
+        transparent 100%
     );
     -webkit-mask-image: radial-gradient(
-        farthest-corner at center,
+        circle min(50vw, 50vh) at 50% 50%,
         black 0%,
-        rgba(0,0,0,0.9) 40%,
-        rgba(0,0,0,0.5) 65%,
-        transparent 85%
+        rgba(0,0,0,0.9) 70%,
+        rgba(0,0,0,0.5) 85%,
+        transparent 100%
     );
 }
 
@@ -197,18 +197,18 @@ button:focus-visible {
 @media (max-width: 768px) {
     .map-img {
         mask-image: radial-gradient(
-            farthest-corner at center,
+            circle min(50vw, 50vh) at 50% 50%,
             black 0%,
-            rgba(0,0,0,0.9) 35%,
-            rgba(0,0,0,0.5) 60%,
-            transparent 82%
+            rgba(0,0,0,0.9) 70%,
+            rgba(0,0,0,0.5) 85%,
+            transparent 100%
         );
         -webkit-mask-image: radial-gradient(
-            farthest-corner at center,
+            circle min(50vw, 50vh) at 50% 50%,
             black 0%,
-            rgba(0,0,0,0.9) 35%,
-            rgba(0,0,0,0.5) 60%,
-            transparent 82%
+            rgba(0,0,0,0.9) 70%,
+            rgba(0,0,0,0.5) 85%,
+            transparent 100%
         );
     }
 
