@@ -106,20 +106,20 @@ h1 {
     object-fit: contain;
 
     mask-image: radial-gradient(
-        circle,
-        black 30vmin,
-        rgba(0,0,0,0.8) 35vmin,
-        rgba(0,0,0,0.4) 40vmin,
-        rgba(0,0,0,0) 45vmin,
-        transparent 60vmin
+        ellipse 85% 60%,
+        black 0%,
+        rgba(0,0,0,0.8) 60%,
+        rgba(0,0,0,0.4) 80%,
+        rgba(0,0,0,0) 90%,
+        transparent 100%
     );
     -webkit-mask-image: radial-gradient(
-        circle,
-        black 30vmin,
-        rgba(0,0,0,0.8) 35vmin,
-        rgba(0,0,0,0.4) 40vmin,
-        rgba(0,0,0,0) 45vmin,
-        transparent 60vmin
+        ellipse 85% 60%,
+        black 0%,
+        rgba(0,0,0,0.8) 60%,
+        rgba(0,0,0,0.4) 80%,
+        rgba(0,0,0,0) 90%,
+        transparent 100%
     );
 }
 
@@ -199,20 +199,20 @@ button:focus-visible {
 @media (max-width: 768px) {
     .map-img {
         mask-image: radial-gradient(
-            circle,
-            black 20%,
-            rgba(0,0,0,0.9) 28%,
-            rgba(0,0,0,0.7) 34%,
-            rgba(0,0,0,0) 41%,
-            transparent 54%
+            ellipse 85% 65%,
+            black 0%,
+            rgba(0,0,0,0.8) 55%,
+            rgba(0,0,0,0.4) 75%,
+            rgba(0,0,0,0) 88%,
+            transparent 100%
         );
         -webkit-mask-image: radial-gradient(
-            circle,
-            black 20%,
-            rgba(0,0,0,0.9) 28%,
-            rgba(0,0,0,0.7) 34%,
-            rgba(0,0,0,0) 41%,
-            transparent 54%
+            ellipse 85% 65%,
+            black 0%,
+            rgba(0,0,0,0.8) 55%,
+            rgba(0,0,0,0.4) 75%,
+            rgba(0,0,0,0) 88%,
+            transparent 100%
         );
     }
 
