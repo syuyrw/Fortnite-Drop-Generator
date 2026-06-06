@@ -122,7 +122,7 @@ button {
 }
 
 button:hover {
-    background-color: #0a2b66;
+    background-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-1px);
 }
 
