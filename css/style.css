@@ -122,10 +122,7 @@ button {
 }
 
 button:hover {
-    background-color: white;
-    color: #0b3071;
-    border-color: #0b3071;
-    transform: translateY(-1px);
+    transform: scale(1.1);
 }
 
 button:active {
