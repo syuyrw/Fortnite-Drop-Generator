@@ -55,6 +55,32 @@ function waitForImage(img) {
   });
 }
 
+function updateImageShadow(img) {
+  const container = img.closest(".map-container");
+  if (!container) return;
+
+  const containerRect = container.getBoundingClientRect();
+  const imgRect = img.getBoundingClientRect();
+
+  // Position shadow to match actual image bounds
+  const left = imgRect.left - containerRect.left;
+  const top = imgRect.top - containerRect.top;
+  const width = imgRect.width;
+  const height = imgRect.height;
+
+  let shadow = document.getElementById("map-shadow");
+  if (!shadow) {
+    shadow = document.createElement("div");
+    shadow.id = "map-shadow";
+    container.appendChild(shadow);
+  }
+
+  shadow.style.left = left + "px";
+  shadow.style.top = top + "px";
+  shadow.style.width = width + "px";
+  shadow.style.height = height + "px";
+}
+
 /**
  * Convert Fortnite world coords (centered around ~0,0) -> NATURAL image pixel coords.
  * We do NOT invert Y for this map (positive Y should map downward in pixels).
@@ -486,6 +512,10 @@ function displayRandomSpot() {
       // if your HTML already has a src
       await waitForImage(mapImg);
     }
+
+    // Add shadow overlay to image edges
+    updateImageShadow(mapImg);
+    window.addEventListener("resize", () => updateImageShadow(mapImg));
 
 
 
