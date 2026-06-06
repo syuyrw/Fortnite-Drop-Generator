@@ -190,7 +190,7 @@ button:focus-visible {
     }
 
     #click-counter {
-        top: 70vh;
+        top: calc(78vh + 55px);
         transform: translateX(-50%);
     }
 
@@ -220,7 +220,7 @@ button:focus-visible {
 /* Tablet and Desktop */
 @media (min-width: 769px) {
     #click-counter {
-        top: 80vh;
+        top: calc(88vh + 55px);
     }
 
     .button-box {
