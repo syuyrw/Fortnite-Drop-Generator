@@ -430,39 +430,15 @@ function displayRandomSpot() {
   const cw = container.clientWidth;
   const ch = container.clientHeight;
 
-  // Create canvas for color sampling
-  const canvas = document.createElement("canvas");
-  canvas.width = imgW;
-  canvas.height = imgH;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(mapImg, 0, 0);
-
   // random point in a circle centered on image center (natural pixel space)
   const cx = imgW / 2;
   const cy = imgH / 2;
   const radius = Math.min(cx, cy) * RANDOM_SPOT_RADIUS_FACTOR;
 
-  let px, py;
-  let attempts = 0;
-  const maxAttempts = 100;
-
-  // Keep generating until we find a spot not in water (not blue)
-  do {
-    const angle = Math.random() * Math.PI * 2;
-    const r = radius * Math.sqrt(Math.random());
-    px = cx + r * Math.cos(angle);
-    py = cy + r * Math.sin(angle);
-    attempts++;
-
-    // Check pixel color at this location
-    const imageData = ctx.getImageData(Math.floor(px), Math.floor(py), 1, 1);
-    const [red, green, blue] = imageData.data;
-
-    // If blue is not the dominant color, it's land (not water)
-    if (blue <= red && blue <= green) {
-      break; // Found a land spot
-    }
-  } while (attempts < maxAttempts);
+  const angle = Math.random() * Math.PI * 2;
+  const r = radius * Math.sqrt(Math.random());
+  const px = cx + r * Math.cos(angle);
+  const py = cy + r * Math.sin(angle);
 
   const { x, y } = imagePixelToScreen(px, py, imgW, imgH, cw, ch);
 
