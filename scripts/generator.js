@@ -46,47 +46,46 @@ function shuffle(arr) {
   return arr;
 }
 
-function sampleMapEdgeColor(img) {
-  const canvas = document.createElement("canvas");
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0);
-
-  const centerX = canvas.width / 2;
-  const centerY = canvas.height / 2;
-  const radius = Math.min(centerX, centerY) * 0.95;
-
-  // Sample colors at multiple angles around the edge
-  const colorSamples = [];
-  const angleCount = 16;
-  for (let i = 0; i < angleCount; i++) {
-    const angle = (i / angleCount) * Math.PI * 2;
-    const x = Math.floor(centerX + Math.cos(angle) * radius);
-    const y = Math.floor(centerY + Math.sin(angle) * radius);
-    const data = ctx.getImageData(x, y, 1, 1).data;
-    colorSamples.push(`rgb(${data[0]},${data[1]},${data[2]})`);
-  }
-
-  return colorSamples;
-}
-
 function updateBackgroundFromMapEdges(img) {
-  const colors = sampleMapEdgeColor(img);
-  const avgR = colors.reduce((sum, c) => sum + parseInt(c.match(/\d+/)[0]), 0) / colors.length;
-  const avgG = colors.reduce((sum, c) => {
-    const matches = c.match(/\d+/g);
-    return sum + parseInt(matches[1]);
-  }, 0) / colors.length;
-  const avgB = colors.reduce((sum, c) => {
-    const matches = c.match(/\d+/g);
-    return sum + parseInt(matches[2]);
-  }, 0) / colors.length;
+  try {
+    // Create a canvas and attempt to sample pixels
+    const canvas = document.createElement("canvas");
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
 
-  const edgeColor = `rgb(${Math.round(avgR)},${Math.round(avgG)},${Math.round(avgB)})`;
-  const centerColor = `rgb(${Math.round(avgR * 1.3)},${Math.round(avgG * 1.3)},${Math.round(avgB * 1.3)})`;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = Math.min(centerX, centerY) * 0.9;
 
-  document.body.style.background = `radial-gradient(ellipse at center, ${centerColor} 0%, ${edgeColor} 100%)`;
+    // Sample 16 colors around the edge
+    let totalR = 0, totalG = 0, totalB = 0;
+    const angleCount = 16;
+
+    for (let i = 0; i < angleCount; i++) {
+      const angle = (i / angleCount) * Math.PI * 2;
+      const x = Math.floor(centerX + Math.cos(angle) * radius);
+      const y = Math.floor(centerY + Math.sin(angle) * radius);
+      const data = ctx.getImageData(x, y, 1, 1).data;
+      totalR += data[0];
+      totalG += data[1];
+      totalB += data[2];
+    }
+
+    const avgR = totalR / angleCount;
+    const avgG = totalG / angleCount;
+    const avgB = totalB / angleCount;
+
+    const edgeColor = `rgb(${Math.round(avgR)},${Math.round(avgG)},${Math.round(avgB)})`;
+    const centerColor = `rgb(${Math.round(Math.min(avgR * 1.4, 255))},${Math.round(Math.min(avgG * 1.4, 255))},${Math.round(Math.min(avgB * 1.4, 255))})`;
+
+    document.body.style.background = `radial-gradient(ellipse 50vw 50vh at 50% 50%, ${centerColor} 0%, ${edgeColor} 100%)`;
+  } catch (err) {
+    // Fallback: use a typical Fortnite map color gradient (blue water)
+    console.warn("Could not sample map colors, using fallback gradient:", err);
+    document.body.style.background = `radial-gradient(ellipse 50vw 50vh at 50% 50%, #3a6a9c 0%, #1a2a4c 100%)`;
+  }
 }
 
 function waitForImage(img) {
