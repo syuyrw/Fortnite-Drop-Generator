@@ -55,38 +55,6 @@ function waitForImage(img) {
   });
 }
 
-function updateImageShadow(img) {
-  const container = img.closest(".map-container");
-  if (!container) return;
-
-  const containerRect = container.getBoundingClientRect();
-  const imgRect = img.getBoundingClientRect();
-
-  // Position shadow to match actual image bounds
-  const left = imgRect.left - containerRect.left;
-  const top = imgRect.top - containerRect.top;
-  const width = imgRect.width;
-  const height = imgRect.height;
-
-  // Calculate gradient fade based on image dimensions
-  const minDim = Math.min(width, height);
-  const fadeStart = Math.round(minDim * 0.65);
-  const fadeEnd = Math.round(minDim * 0.95);
-
-  let shadow = document.getElementById("map-shadow");
-  if (!shadow) {
-    shadow = document.createElement("div");
-    shadow.id = "map-shadow";
-    container.appendChild(shadow);
-  }
-
-  shadow.style.left = left + "px";
-  shadow.style.top = top + "px";
-  shadow.style.width = width + "px";
-  shadow.style.height = height + "px";
-  shadow.style.background = `radial-gradient(ellipse at center, transparent 0%, transparent ${fadeStart}px, rgba(11, 48, 113, 0.9) ${fadeEnd}px, rgb(11, 48, 113) 100%)`;
-}
-
 /**
  * Convert Fortnite world coords (centered around ~0,0) -> NATURAL image pixel coords.
  * We do NOT invert Y for this map (positive Y should map downward in pixels).
@@ -519,9 +487,6 @@ function displayRandomSpot() {
       await waitForImage(mapImg);
     }
 
-    // Add shadow overlay to image edges
-    updateImageShadow(mapImg);
-    window.addEventListener("resize", () => updateImageShadow(mapImg));
 
 
 

@@ -107,12 +107,6 @@ h1 {
     object-fit: contain;
 }
 
-#map-shadow {
-    position: absolute;
-    pointer-events: none;
-    z-index: 10;
-}
-
 button {
     border-radius: 50px;
     background-color: rgba(10, 20, 35, 0.8);
