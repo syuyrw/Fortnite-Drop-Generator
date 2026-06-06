@@ -46,6 +46,49 @@ function shuffle(arr) {
   return arr;
 }
 
+function sampleMapEdgeColor(img) {
+  const canvas = document.createElement("canvas");
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = Math.min(centerX, centerY) * 0.95;
+
+  // Sample colors at multiple angles around the edge
+  const colorSamples = [];
+  const angleCount = 16;
+  for (let i = 0; i < angleCount; i++) {
+    const angle = (i / angleCount) * Math.PI * 2;
+    const x = Math.floor(centerX + Math.cos(angle) * radius);
+    const y = Math.floor(centerY + Math.sin(angle) * radius);
+    const data = ctx.getImageData(x, y, 1, 1).data;
+    colorSamples.push(`rgb(${data[0]},${data[1]},${data[2]})`);
+  }
+
+  return colorSamples;
+}
+
+function updateBackgroundFromMapEdges(img) {
+  const colors = sampleMapEdgeColor(img);
+  const avgR = colors.reduce((sum, c) => sum + parseInt(c.match(/\d+/)[0]), 0) / colors.length;
+  const avgG = colors.reduce((sum, c) => {
+    const matches = c.match(/\d+/g);
+    return sum + parseInt(matches[1]);
+  }, 0) / colors.length;
+  const avgB = colors.reduce((sum, c) => {
+    const matches = c.match(/\d+/g);
+    return sum + parseInt(matches[2]);
+  }, 0) / colors.length;
+
+  const edgeColor = `rgb(${Math.round(avgR)},${Math.round(avgG)},${Math.round(avgB)})`;
+  const centerColor = `rgb(${Math.round(avgR * 1.3)},${Math.round(avgG * 1.3)},${Math.round(avgB * 1.3)})`;
+
+  document.body.style.background = `radial-gradient(ellipse at center, ${centerColor} 0%, ${edgeColor} 100%)`;
+}
+
 function waitForImage(img) {
   return new Promise((resolve, reject) => {
     if (!img) return reject(new Error("waitForImage called with null img"));
@@ -486,6 +529,10 @@ function displayRandomSpot() {
       // if your HTML already has a src
       await waitForImage(mapImg);
     }
+
+    // Update background to match map edge colors
+    updateBackgroundFromMapEdges(mapImg);
+    window.addEventListener("resize", () => updateBackgroundFromMapEdges(mapImg));
 
     // Use the POI list from SEO for main functionality
     pois = seoPoiList;
