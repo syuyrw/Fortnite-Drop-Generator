@@ -55,25 +55,6 @@ function waitForImage(img) {
   });
 }
 
-function updateMapShadowOverlay(img) {
-  const container = img.closest(".map-container");
-  if (!container) return;
-
-  let overlay = document.getElementById("map-shadow-overlay");
-  if (!overlay) {
-    overlay = document.createElement("div");
-    overlay.id = "map-shadow-overlay";
-    container.appendChild(overlay);
-  }
-
-  // Size overlay to cover entire container for consistent vignette effect
-  overlay.style.position = "absolute";
-  overlay.style.top = "0";
-  overlay.style.left = "0";
-  overlay.style.width = "100%";
-  overlay.style.height = "100%";
-}
-
 /**
  * Convert Fortnite world coords (centered around ~0,0) -> NATURAL image pixel coords.
  * We do NOT invert Y for this map (positive Y should map downward in pixels).
@@ -506,9 +487,6 @@ function displayRandomSpot() {
       await waitForImage(mapImg);
     }
 
-    // Create and position shadow overlay bound to image edges
-    updateMapShadowOverlay(mapImg);
-    window.addEventListener("resize", () => updateMapShadowOverlay(mapImg));
 
 
     // Use the POI list from SEO for main functionality
