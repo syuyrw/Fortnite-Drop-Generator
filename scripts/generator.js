@@ -46,6 +46,22 @@ function shuffle(arr) {
   return arr;
 }
 
+function isBlue(r, g, b) {
+  // Convert RGB to HSL hue
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  if (max === min) return false; // achromatic (gray/white/black)
+  const d = max - min;
+  let h;
+  switch (max) {
+    case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+    case g: h = ((b - r) / d + 2) / 6; break;
+    case b: h = ((r - g) / d + 4) / 6; break;
+  }
+  const hue = Math.round(h * 360);
+  return hue >= 180 && hue <= 270;
+}
+
 function waitForImage(img) {
   return new Promise((resolve, reject) => {
     if (!img) return reject(new Error("waitForImage called with null img"));
@@ -430,15 +446,50 @@ function displayRandomSpot() {
   const cw = container.clientWidth;
   const ch = container.clientHeight;
 
+  // Enable CORS for pixel sampling
+  mapImg.crossOrigin = "anonymous";
+
+  // Create canvas for color sampling
+  const canvas = document.createElement("canvas");
+  canvas.width = imgW;
+  canvas.height = imgH;
+  const ctx = canvas.getContext("2d");
+
+  try {
+    ctx.drawImage(mapImg, 0, 0);
+  } catch (e) {
+    console.warn("Could not sample map colors for island detection:", e);
+  }
+
   // random point in a circle centered on image center (natural pixel space)
   const cx = imgW / 2;
   const cy = imgH / 2;
   const radius = Math.min(cx, cy) * RANDOM_SPOT_RADIUS_FACTOR;
 
-  const angle = Math.random() * Math.PI * 2;
-  const r = radius * Math.sqrt(Math.random());
-  const px = cx + r * Math.cos(angle);
-  const py = cy + r * Math.sin(angle);
+  let px, py;
+  let attempts = 0;
+  const maxAttempts = 100;
+
+  do {
+    const angle = Math.random() * Math.PI * 2;
+    const r = radius * Math.sqrt(Math.random());
+    px = cx + r * Math.cos(angle);
+    py = cy + r * Math.sin(angle);
+    attempts++;
+
+    try {
+      const imageData = ctx.getImageData(Math.floor(px), Math.floor(py), 1, 1);
+      const [red, green, blue] = imageData.data;
+
+      // If not blue (not water), use this spot
+      if (!isBlue(red, green, blue)) {
+        break;
+      }
+    } catch (e) {
+      // If we can't sample pixels, use the spot anyway
+      break;
+    }
+  } while (attempts < maxAttempts);
 
   const { x, y } = imagePixelToScreen(px, py, imgW, imgH, cw, ch);
 
