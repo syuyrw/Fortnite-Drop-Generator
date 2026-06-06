@@ -59,15 +59,6 @@ function updateMapShadowOverlay(img) {
   const container = img.closest(".map-container");
   if (!container) return;
 
-  const containerRect = container.getBoundingClientRect();
-  const imgRect = img.getBoundingClientRect();
-
-  // Position overlay to match image bounds
-  const left = imgRect.left - containerRect.left;
-  const top = imgRect.top - containerRect.top;
-  const width = imgRect.width;
-  const height = imgRect.height;
-
   let overlay = document.getElementById("map-shadow-overlay");
   if (!overlay) {
     overlay = document.createElement("div");
@@ -75,10 +66,12 @@ function updateMapShadowOverlay(img) {
     container.appendChild(overlay);
   }
 
-  overlay.style.left = left + "px";
-  overlay.style.top = top + "px";
-  overlay.style.width = width + "px";
-  overlay.style.height = height + "px";
+  // Size overlay to cover entire container for consistent vignette effect
+  overlay.style.position = "absolute";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
 }
 
 /**
