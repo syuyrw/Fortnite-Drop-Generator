@@ -59,15 +59,6 @@ function updateImageShadow(img) {
   const container = img.closest(".map-container");
   if (!container) return;
 
-  const containerRect = container.getBoundingClientRect();
-  const imgRect = img.getBoundingClientRect();
-
-  // Position shadow to match actual image bounds
-  const left = imgRect.left - containerRect.left;
-  const top = imgRect.top - containerRect.top;
-  const width = imgRect.width;
-  const height = imgRect.height;
-
   let shadow = document.getElementById("map-shadow");
   if (!shadow) {
     shadow = document.createElement("div");
@@ -75,10 +66,11 @@ function updateImageShadow(img) {
     container.appendChild(shadow);
   }
 
-  shadow.style.left = left + "px";
-  shadow.style.top = top + "px";
-  shadow.style.width = width + "px";
-  shadow.style.height = height + "px";
+  // Cover entire container so shadow appears on all edges
+  shadow.style.left = "0";
+  shadow.style.top = "0";
+  shadow.style.width = "100%";
+  shadow.style.height = "100%";
 }
 
 /**
