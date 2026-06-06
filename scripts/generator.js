@@ -55,6 +55,32 @@ function waitForImage(img) {
   });
 }
 
+function updateMapShadowOverlay(img) {
+  const container = img.closest(".map-container");
+  if (!container) return;
+
+  const containerRect = container.getBoundingClientRect();
+  const imgRect = img.getBoundingClientRect();
+
+  // Position overlay to match image bounds
+  const left = imgRect.left - containerRect.left;
+  const top = imgRect.top - containerRect.top;
+  const width = imgRect.width;
+  const height = imgRect.height;
+
+  let overlay = document.getElementById("map-shadow-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "map-shadow-overlay";
+    container.appendChild(overlay);
+  }
+
+  overlay.style.left = left + "px";
+  overlay.style.top = top + "px";
+  overlay.style.width = width + "px";
+  overlay.style.height = height + "px";
+}
+
 /**
  * Convert Fortnite world coords (centered around ~0,0) -> NATURAL image pixel coords.
  * We do NOT invert Y for this map (positive Y should map downward in pixels).
@@ -486,6 +512,10 @@ function displayRandomSpot() {
       // if your HTML already has a src
       await waitForImage(mapImg);
     }
+
+    // Create and position shadow overlay bound to image edges
+    updateMapShadowOverlay(mapImg);
+    window.addEventListener("resize", () => updateMapShadowOverlay(mapImg));
 
 
     // Use the POI list from SEO for main functionality
