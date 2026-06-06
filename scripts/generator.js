@@ -412,18 +412,6 @@ function displayRandomMarker() {
   if (nodeMarker) nodeMarker.style.visibility = "hidden";
 }
 
-function isBluePixel(canvas, px, py) {
-  if (px < 0 || py < 0 || px >= canvas.width || py >= canvas.height) return false;
-
-  const ctx = canvas.getContext("2d");
-  const imageData = ctx.getImageData(Math.floor(px), Math.floor(py), 1, 1);
-  const [r, g, b] = imageData.data;
-
-  // Check if pixel is predominantly blue (blue value higher than red and green)
-  // Water is typically a shade of blue
-  return b > r && b > g && b > 50;
-}
-
 function displayRandomSpot() {
   // Show the red dot marker
   if (nodeMarker) nodeMarker.style.visibility = "visible";
@@ -442,30 +430,15 @@ function displayRandomSpot() {
   const cw = container.clientWidth;
   const ch = container.clientHeight;
 
-  // Create canvas for color sampling
-  const canvas = document.createElement("canvas");
-  canvas.width = imgW;
-  canvas.height = imgH;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(mapImg, 0, 0);
-
   // random point in a circle centered on image center (natural pixel space)
   const cx = imgW / 2;
   const cy = imgH / 2;
   const radius = Math.min(cx, cy) * RANDOM_SPOT_RADIUS_FACTOR;
 
-  let px, py;
-  let attempts = 0;
-  const maxAttempts = 50;
-
-  // Keep generating until we find a non-blue location
-  do {
-    const angle = Math.random() * Math.PI * 2;
-    const r = radius * Math.sqrt(Math.random());
-    px = cx + r * Math.cos(angle);
-    py = cy + r * Math.sin(angle);
-    attempts++;
-  } while (isBluePixel(canvas, px, py) && attempts < maxAttempts);
+  const angle = Math.random() * Math.PI * 2;
+  const r = radius * Math.sqrt(Math.random());
+  const px = cx + r * Math.cos(angle);
+  const py = cy + r * Math.sin(angle);
 
   const { x, y } = imagePixelToScreen(px, py, imgW, imgH, cw, ch);
 
