@@ -68,14 +68,10 @@ function updateImageShadow(img) {
   const width = imgRect.width;
   const height = imgRect.height;
 
-  // Calculate shadow size based on image dimensions
+  // Calculate gradient fade based on image dimensions
   const minDim = Math.min(width, height);
-  const blur1 = Math.round(minDim * 0.08);
-  const spread1 = Math.round(minDim * 0.04);
-  const blur2 = Math.round(minDim * 0.15);
-  const spread2 = Math.round(minDim * 0.08);
-  const blur3 = Math.round(minDim * 0.25);
-  const spread3 = Math.round(minDim * 0.15);
+  const fadeStart = Math.round(minDim * 0.65);
+  const fadeEnd = Math.round(minDim * 0.95);
 
   let shadow = document.getElementById("map-shadow");
   if (!shadow) {
@@ -88,9 +84,7 @@ function updateImageShadow(img) {
   shadow.style.top = top + "px";
   shadow.style.width = width + "px";
   shadow.style.height = height + "px";
-  shadow.style.boxShadow = `inset 0 0 ${blur1}px ${spread1}px rgba(11, 48, 113, 0.95),
-                            inset 0 0 ${blur2}px ${spread2}px rgba(11, 48, 113, 0.85),
-                            inset 0 0 ${blur3}px ${spread3}px rgba(11, 48, 113, 0.6)`;
+  shadow.style.background = `radial-gradient(ellipse at center, transparent 0%, transparent ${fadeStart}px, rgba(11, 48, 113, 0.9) ${fadeEnd}px, rgb(11, 48, 113) 100%)`;
 }
 
 /**
